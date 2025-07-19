@@ -1,0 +1,18 @@
+Admin
+{
+  "username": "NikScherbo",
+  "firstname": "Никита",
+  "lastname": "Щербо",
+  "passportCode": "BM6246437854",
+  "phoneNumber": "375298538612",
+  "password": "Trenbolon",
+  "driverLicense": "08.10.2030",
+  "imguser": "https://www.google.com/url?sa=i&url=https%3A%2F%2Fwww.film.ru%2Fperson%2Ftom-hardi&psig=AOvVaw3nArKTze_WAdFbuK57qYIk&ust=1746214271528000&source=images&cd=vfe&opi=89978449&ved=0CBQQjRxqFwoTCJiMyZ6Bg40DFQAAAAAdAAAAABAE",
+  "adminkey": "Q9yTpDPNk6to"
+}
+
+User
+ {
+        "username": "MrTest",
+        "password": "Testesteron"
+    }
