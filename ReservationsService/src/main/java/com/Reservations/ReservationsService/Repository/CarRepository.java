@@ -1,6 +1,6 @@
-package com.Car.Carservice.Repository;
+package com.Reservations.ReservationsService.Repository;
 
-import com.Car.Carservice.Entity.Car;
+import com.Reservations.ReservationsService.Entity.Car;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
