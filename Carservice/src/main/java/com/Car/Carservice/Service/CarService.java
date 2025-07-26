@@ -1,22 +1,20 @@
 package com.Car.Carservice.Service;
 
-import com.Car.Carservice.DTO.ShortCarInfoDTO;
 import com.Car.Carservice.Entity.Car;
 import com.Car.Carservice.Mapper.CarMapping;
 import com.Car.Carservice.Repository.CarRepository;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import dto.ShortCarInfoDTO;
 import jakarta.transaction.Transactional;
 import lombok.Data;
-//import lombok.EqualsAndHashCode;
-//import lombok.Getter;
-//import lombok.ToString;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
-//import lombok.EqualsAndHashCode;
-//import lombok.ToString;
+// Замените старый импорт
 
 @Data
 @Service
@@ -26,12 +24,29 @@ public class CarService {
 
     private final CarRepository carRepository;
     private final CarMapping carMapping;
+    private final KafkaTemplate<String, ShortCarInfoDTO> kafkaTemplate;
+    private final ObjectMapper objectMapper;
 
     //Конструктор класса сервиса
     @Autowired
-    public CarService(CarRepository carRepository, CarMapping carMapping) {
+    public CarService(CarRepository carRepository, CarMapping carMapping, KafkaTemplate<String, ShortCarInfoDTO> kafkaTemplate, ObjectMapper objectMapper) {
         this.carRepository = carRepository;
         this.carMapping = carMapping;
+        this.kafkaTemplate = kafkaTemplate;
+        this.objectMapper = objectMapper;
+    }
+
+
+//    @KafkaListener(topics = "C")
+    public void SendKafkaCar(ShortCarInfoDTO shortCarInfoDTO) {
+
+        try{
+            kafkaTemplate.send("Cars", shortCarInfoDTO);
+        }
+        catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+
     }
 
     //Метод для просмотра всего списка авто

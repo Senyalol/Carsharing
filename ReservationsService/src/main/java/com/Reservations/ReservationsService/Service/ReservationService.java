@@ -1,5 +1,8 @@
 package com.Reservations.ReservationsService.Service;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import dto.ShortCarInfoDTO;
 import com.Reservations.ReservationsService.DTO.ShortReservationInfoDTO;
 import com.Reservations.ReservationsService.Entity.Car;
 import com.Reservations.ReservationsService.Entity.Reservation;
@@ -7,12 +10,19 @@ import com.Reservations.ReservationsService.Entity.User;
 import com.Reservations.ReservationsService.Repository.CarRepository;
 import com.Reservations.ReservationsService.Repository.ReservationRepository;
 import com.Reservations.ReservationsService.Repository.UserRepository;
+//import com.fasterxml.jackson.databind.ObjectMapper;
+//import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.kafka.annotation.KafkaListener;
+import org.springframework.kafka.support.KafkaHeaders;
+import org.springframework.messaging.handler.annotation.Header;
+import org.springframework.messaging.handler.annotation.Payload;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
+//import java.util.Arrays;
 import java.util.List;
 
 @Service
@@ -30,6 +40,46 @@ public class ReservationService {
         this.carRepository = carRepository;
         this.reservationRepository = reservationRepository;
     }
+
+    //Получатель автомобиля , записывает автомобиль из другого сервиса в репозиторий
+    //На сервисе с авто необходимо повозиться с контроллером
+    @KafkaListener(topics = "Cars", groupId = "Carsharing")
+    public void ListenCarKafka(String message) throws JsonProcessingException {
+
+        ObjectMapper mapper = new ObjectMapper();
+        ShortCarInfoDTO carDTO = mapper.readValue(message, ShortCarInfoDTO.class);
+
+        try{
+
+            Car tempCar = new Car();
+            tempCar.setId(carDTO.getId());
+            tempCar.setMake(carDTO.getMake());
+            tempCar.setModel(carDTO.getModel());
+            tempCar.setYear(carDTO.getYear());
+            tempCar.setLicensePlate(carDTO.getLicensePlate());
+            tempCar.setAvailability(carDTO.getAvailability());
+            tempCar.setLocation(carDTO.getLocation());
+            tempCar.setPhotoUrl(carDTO.getPhotoUrl());
+            tempCar.setEngineType(carDTO.getEngineType());
+            tempCar.setNumberOfSeats(carDTO.getNumberOfSeats());
+            tempCar.setWeight(carDTO.getWeight());
+            tempCar.setEngineVolume(carDTO.getEngineVolume());
+            tempCar.setMaxSpeed(carDTO.getMaxSpeed());
+            tempCar.setGearboxType(carDTO.getGearboxType());
+            tempCar.setDescribe(carDTO.getDescribe());
+            tempCar.setHorsep(carDTO.getHorsep());
+            tempCar.setPricePerHour(carDTO.getPricePerHour());
+
+            carRepository.save(tempCar);
+            System.out.println("The car has been successfully received and saved!");
+        }
+
+        catch (Exception e){
+            System.out.println("Error data in object" + e.getMessage());
+        }
+
+    }
+
 
     //Сделать бронь
     public Reservation addReservation(ShortReservationInfoDTO shortReservationInfoDTO) {

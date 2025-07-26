@@ -1,4 +1,4 @@
-//package com.Car.Carservice.DTO;
+//package com.Reservations.ReservationsService.DTO;
 //
 //import com.fasterxml.jackson.annotation.JsonProperty;
 //import lombok.Data;
@@ -57,4 +57,5 @@
 //    @JsonProperty("price_per_hour")
 //    private Double pricePerHour;
 //}
+//
 //

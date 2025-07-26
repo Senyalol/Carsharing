@@ -1,10 +1,12 @@
 package com.Car.Carservice.Controller;
 
-import com.Car.Carservice.DTO.ShortCarInfoDTO;
+import dto.ShortCarInfoDTO;
 import com.Car.Carservice.Service.CarService;
+//import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import org.springframework.beans.factory.annotation.Autowired;
 //import org.springframework.security.access.prepost.PreAuthorize;
 //import org.springframework.security.access.prepost.PreAuthorize;
+//import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -24,6 +26,13 @@ public class CarControllers {
     @GetMapping
     public List<ShortCarInfoDTO> getCars() {
         return carService.GetAllCars();
+    }
+
+    //@Transactional
+    //@JsonSerialize
+    @PostMapping("/kafka")
+    public void sendKafkaCar(@RequestBody ShortCarInfoDTO shortCarInfoDTO) {
+        carService.SendKafkaCar(shortCarInfoDTO);
     }
 
     //Найти авто по id (для всех)

@@ -1,6 +1,6 @@
 package com.Car.Carservice.Mapper;
 
-import com.Car.Carservice.DTO.ShortCarInfoDTO;
+import dto.ShortCarInfoDTO;
 import com.Car.Carservice.Entity.Car;
 import org.mapstruct.Mapper;
 
