@@ -7,22 +7,15 @@ import com.Reservations.ReservationsService.DTO.ShortReservationInfoDTO;
 import com.Reservations.ReservationsService.Entity.Car;
 import com.Reservations.ReservationsService.Entity.Reservation;
 import com.Reservations.ReservationsService.Entity.User;
-import com.Reservations.ReservationsService.Repository.CarRepository;
 import com.Reservations.ReservationsService.Repository.ReservationRepository;
-import com.Reservations.ReservationsService.Repository.UserRepository;
-//import com.fasterxml.jackson.databind.ObjectMapper;
-//import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import dto.ShortUserInfoDTO;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.kafka.annotation.KafkaListener;
-import org.springframework.kafka.support.KafkaHeaders;
-import org.springframework.messaging.handler.annotation.Header;
-import org.springframework.messaging.handler.annotation.Payload;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
-//import java.util.Arrays;
 import java.util.List;
 
 @Service
@@ -30,67 +23,90 @@ import java.util.List;
 @JsonSerialize
 public class ReservationService {
 
-    private final UserRepository userRepository;
-    private final CarRepository carRepository;
+    private Car tempMemmoryCar;
+    private User tempMemmoryUser;
     private final ReservationRepository reservationRepository;
 
     @Autowired
-    public ReservationService(UserRepository userRepository, CarRepository carRepository, ReservationRepository reservationRepository) {
-        this.userRepository = userRepository;
-        this.carRepository = carRepository;
+    public ReservationService(ReservationRepository reservationRepository) {
         this.reservationRepository = reservationRepository;
     }
 
     //Получатель автомобиля , записывает автомобиль из другого сервиса в репозиторий
     //На сервисе с авто необходимо повозиться с контроллером
-    @KafkaListener(topics = "Cars", groupId = "Carsharing")
-    public void ListenCarKafka(String message) throws JsonProcessingException {
+    @KafkaListener(topics = "Cars", groupId = "CarsharingC", containerFactory = "carKafkaListnerContainerFactory")
+    public Car ListenCarKafka(String message) throws JsonProcessingException {
 
         ObjectMapper mapper = new ObjectMapper();
         ShortCarInfoDTO carDTO = mapper.readValue(message, ShortCarInfoDTO.class);
 
         try{
 
-            Car tempCar = new Car();
-            tempCar.setId(carDTO.getId());
-            tempCar.setMake(carDTO.getMake());
-            tempCar.setModel(carDTO.getModel());
-            tempCar.setYear(carDTO.getYear());
-            tempCar.setLicensePlate(carDTO.getLicensePlate());
-            tempCar.setAvailability(carDTO.getAvailability());
-            tempCar.setLocation(carDTO.getLocation());
-            tempCar.setPhotoUrl(carDTO.getPhotoUrl());
-            tempCar.setEngineType(carDTO.getEngineType());
-            tempCar.setNumberOfSeats(carDTO.getNumberOfSeats());
-            tempCar.setWeight(carDTO.getWeight());
-            tempCar.setEngineVolume(carDTO.getEngineVolume());
-            tempCar.setMaxSpeed(carDTO.getMaxSpeed());
-            tempCar.setGearboxType(carDTO.getGearboxType());
-            tempCar.setDescribe(carDTO.getDescribe());
-            tempCar.setHorsep(carDTO.getHorsep());
-            tempCar.setPricePerHour(carDTO.getPricePerHour());
+            tempMemmoryCar.setId(carDTO.getId());
+            tempMemmoryCar.setMake(carDTO.getMake());
+            tempMemmoryCar.setModel(carDTO.getModel());
+            tempMemmoryCar.setYear(carDTO.getYear());
+            tempMemmoryCar.setLicensePlate(carDTO.getLicensePlate());
+            tempMemmoryCar.setAvailability(carDTO.getAvailability());
+            tempMemmoryCar.setLocation(carDTO.getLocation());
+            tempMemmoryCar.setPhotoUrl(carDTO.getPhotoUrl());
+            tempMemmoryCar.setEngineType(carDTO.getEngineType());
+            tempMemmoryCar.setNumberOfSeats(carDTO.getNumberOfSeats());
+            tempMemmoryCar.setWeight(carDTO.getWeight());
+            tempMemmoryCar.setEngineVolume(carDTO.getEngineVolume());
+            tempMemmoryCar.setMaxSpeed(carDTO.getMaxSpeed());
+            tempMemmoryCar.setGearboxType(carDTO.getGearboxType());
+            tempMemmoryCar.setDescribe(carDTO.getDescribe());
+            tempMemmoryCar.setHorsep(carDTO.getHorsep());
+            tempMemmoryCar.setPricePerHour(carDTO.getPricePerHour());
 
-            carRepository.save(tempCar);
-            System.out.println("The car has been successfully received and saved!");
+            System.out.println("The car has been successfully received!");
+            return tempMemmoryCar;
         }
 
         catch (Exception e){
             System.out.println("Error data in object" + e.getMessage());
         }
 
+        return null;
     }
 
+    @KafkaListener(topics = "Users", groupId = "CarsharingU", containerFactory = "userKafkaListnerContainerFactory")
+    public User ListenUserKafka(String message) throws JsonProcessingException {
+        ObjectMapper mapper = new ObjectMapper();
+        ShortUserInfoDTO receivedDTO = mapper.readValue(message, ShortUserInfoDTO.class);
+
+        try {
+
+            tempMemmoryUser.setId(receivedDTO.getId());
+            tempMemmoryUser.setUsername(receivedDTO.getUsername());
+            tempMemmoryUser.setFirstname(receivedDTO.getFirstname());
+            tempMemmoryUser.setLastname(receivedDTO.getLastname());
+            tempMemmoryUser.setPassportCode(receivedDTO.getPassportCode());
+            tempMemmoryUser.setPhoneNumber(receivedDTO.getPhoneNumber());
+            tempMemmoryUser.setPassword(receivedDTO.getPassword());
+            tempMemmoryUser.setDriverLicense(receivedDTO.getDriverLicense());
+            tempMemmoryUser.setImguser(receivedDTO.getImguser());
+
+            System.out.println("The user has been successfully received!");
+            return tempMemmoryUser;
+
+        }
+        catch (Exception e){
+            System.out.println("Error data in object" + e.getMessage());
+        }
+
+        return null;
+    }
 
     //Сделать бронь
     public Reservation addReservation(ShortReservationInfoDTO shortReservationInfoDTO) {
         Reservation reservation = new Reservation();
         reservation.setId(shortReservationInfoDTO.getId());
 
-        User certainU = userRepository.findById(shortReservationInfoDTO.getUser_id()).orElseThrow();
-        reservation.setUser(certainU);
+        reservation.setUser(tempMemmoryUser);
 
-        Car certainCar = carRepository.findById(shortReservationInfoDTO.getCar_id()).orElseThrow();
-        reservation.setCar(certainCar);
+        reservation.setCar(tempMemmoryCar);
 
         reservation.setStartTime(shortReservationInfoDTO.getStartTime());
         reservation.setEndTime(shortReservationInfoDTO.getEndTime());
@@ -110,7 +126,6 @@ public class ReservationService {
         for(Reservation reservation : reservationList) {
             shortReservationInfoDTOList.add(convertToReservationDTO(reservation));
         }
-
 
         return shortReservationInfoDTOList;
     }
@@ -151,14 +166,14 @@ public class ReservationService {
     public Reservation changeReservationStatus(int id, ShortReservationInfoDTO shortReservationInfoDTO) {
         Reservation certainReservation = reservationRepository.findById(id);
 
-        if(shortReservationInfoDTO.getUser_id() != null){
-            User user = userRepository.findById(shortReservationInfoDTO.getUser_id()).orElseThrow();
-            certainReservation.setUser(user);
-        }
-        if(shortReservationInfoDTO.getCar_id() != null){
-            Car car = carRepository.findById(shortReservationInfoDTO.getCar_id()).orElseThrow();
-            certainReservation.setCar(car);
-        }
+//        if(shortReservationInfoDTO.getUser_id() != null){
+//            User user = userRepository.findById(shortReservationInfoDTO.getUser_id()).orElseThrow();
+//            certainReservation.setUser(user);
+//        }
+//        if(shortReservationInfoDTO.getCar_id() != null){
+//            Car car = carRepository.findById(shortReservationInfoDTO.getCar_id()).orElseThrow();
+//            certainReservation.setCar(car);
+//        }
         if(shortReservationInfoDTO.getStartTime() != null){
             certainReservation.setStartTime(shortReservationInfoDTO.getStartTime());
         }

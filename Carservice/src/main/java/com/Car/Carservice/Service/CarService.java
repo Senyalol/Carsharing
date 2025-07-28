@@ -3,7 +3,6 @@ package com.Car.Carservice.Service;
 import com.Car.Carservice.Entity.Car;
 import com.Car.Carservice.Mapper.CarMapping;
 import com.Car.Carservice.Repository.CarRepository;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import dto.ShortCarInfoDTO;
 import jakarta.transaction.Transactional;
@@ -14,8 +13,6 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 
-// Замените старый импорт
-
 @Data
 @Service
 @Transactional
@@ -25,23 +22,20 @@ public class CarService {
     private final CarRepository carRepository;
     private final CarMapping carMapping;
     private final KafkaTemplate<String, ShortCarInfoDTO> kafkaTemplate;
-    private final ObjectMapper objectMapper;
 
     //Конструктор класса сервиса
     @Autowired
-    public CarService(CarRepository carRepository, CarMapping carMapping, KafkaTemplate<String, ShortCarInfoDTO> kafkaTemplate, ObjectMapper objectMapper) {
+    public CarService(CarRepository carRepository, CarMapping carMapping, KafkaTemplate<String, ShortCarInfoDTO> kafkaTemplate) {
         this.carRepository = carRepository;
         this.carMapping = carMapping;
         this.kafkaTemplate = kafkaTemplate;
-        this.objectMapper = objectMapper;
     }
 
-
 //    @KafkaListener(topics = "C")
-    public void SendKafkaCar(ShortCarInfoDTO shortCarInfoDTO) {
+    public void SendKafkaCar(int certainCarId) {
 
         try{
-            kafkaTemplate.send("Cars", shortCarInfoDTO);
+            kafkaTemplate.send("Cars", carMapping.toCarInfoDTO(carRepository.findById(certainCarId)));
         }
         catch (Exception e) {
             throw new RuntimeException(e);

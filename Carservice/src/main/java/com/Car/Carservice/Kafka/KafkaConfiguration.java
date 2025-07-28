@@ -16,7 +16,6 @@ import java.util.Map;
 
 @Configuration
 public class KafkaConfiguration {
-
     @Bean
     public ProducerFactory<String, ShortCarInfoDTO> producerFactory() {
         Map<String, Object> configProps = new HashMap<>();
