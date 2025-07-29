@@ -1,5 +1,6 @@
 package com.Reservations.ReservationsService.Entity;
 
+//import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
@@ -14,6 +15,7 @@ import java.util.Set;
 @Entity
 @Table(name = "cars")
 public class Car {
+
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "cars_id_gen")
     @SequenceGenerator(name = "cars_id_gen", sequenceName = "cars_car_id_seq", allocationSize = 1)

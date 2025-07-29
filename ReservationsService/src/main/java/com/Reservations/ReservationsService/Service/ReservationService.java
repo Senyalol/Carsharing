@@ -1,7 +1,6 @@
 package com.Reservations.ReservationsService.Service;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import dto.ShortCarInfoDTO;
 import com.Reservations.ReservationsService.DTO.ShortReservationInfoDTO;
 import com.Reservations.ReservationsService.Entity.Car;
@@ -16,15 +15,17 @@ import org.springframework.kafka.annotation.KafkaListener;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Service
 @Transactional
 @JsonSerialize
 public class ReservationService {
 
-    private Car tempMemmoryCar;
-    private User tempMemmoryUser;
+    private final Map<Integer,Car> receivedKafkaCars = new HashMap<>();
+    private final Map<Integer,User> receivedKafkaUsers = new HashMap<>();
     private final ReservationRepository reservationRepository;
 
     @Autowired
@@ -35,68 +36,74 @@ public class ReservationService {
     //Получатель автомобиля , записывает автомобиль из другого сервиса в репозиторий
     //На сервисе с авто необходимо повозиться с контроллером
     @KafkaListener(topics = "Cars", groupId = "CarsharingC", containerFactory = "carKafkaListnerContainerFactory")
-    public Car ListenCarKafka(String message) throws JsonProcessingException {
+    public void ListenCarKafka(ShortCarInfoDTO carDTO) throws JsonProcessingException {
 
-        ObjectMapper mapper = new ObjectMapper();
-        ShortCarInfoDTO carDTO = mapper.readValue(message, ShortCarInfoDTO.class);
+        System.out.println(carDTO);
 
         try{
 
-            tempMemmoryCar.setId(carDTO.getId());
-            tempMemmoryCar.setMake(carDTO.getMake());
-            tempMemmoryCar.setModel(carDTO.getModel());
-            tempMemmoryCar.setYear(carDTO.getYear());
-            tempMemmoryCar.setLicensePlate(carDTO.getLicensePlate());
-            tempMemmoryCar.setAvailability(carDTO.getAvailability());
-            tempMemmoryCar.setLocation(carDTO.getLocation());
-            tempMemmoryCar.setPhotoUrl(carDTO.getPhotoUrl());
-            tempMemmoryCar.setEngineType(carDTO.getEngineType());
-            tempMemmoryCar.setNumberOfSeats(carDTO.getNumberOfSeats());
-            tempMemmoryCar.setWeight(carDTO.getWeight());
-            tempMemmoryCar.setEngineVolume(carDTO.getEngineVolume());
-            tempMemmoryCar.setMaxSpeed(carDTO.getMaxSpeed());
-            tempMemmoryCar.setGearboxType(carDTO.getGearboxType());
-            tempMemmoryCar.setDescribe(carDTO.getDescribe());
-            tempMemmoryCar.setHorsep(carDTO.getHorsep());
-            tempMemmoryCar.setPricePerHour(carDTO.getPricePerHour());
+            Car tempCar = new Car();
+
+            tempCar.setId(carDTO.getId());
+            tempCar.setMake(carDTO.getMake());
+            tempCar.setModel(carDTO.getModel());
+            tempCar.setYear(carDTO.getYear());
+            tempCar.setLicensePlate(carDTO.getLicensePlate());
+            tempCar.setAvailability(carDTO.getAvailability());
+            tempCar.setLocation(carDTO.getLocation());
+            tempCar.setPhotoUrl(carDTO.getPhotoUrl());
+            tempCar.setEngineType(carDTO.getEngineType());
+            tempCar.setNumberOfSeats(carDTO.getNumberOfSeats());
+            tempCar.setWeight(carDTO.getWeight());
+            tempCar.setEngineVolume(carDTO.getEngineVolume());
+            tempCar.setMaxSpeed(carDTO.getMaxSpeed());
+            tempCar.setGearboxType(carDTO.getGearboxType());
+            tempCar.setDescribe(carDTO.getDescribe());
+            tempCar.setHorsep(carDTO.getHorsep());
+            tempCar.setPricePerHour(carDTO.getPricePerHour());
+
+            receivedKafkaCars.put(carDTO.getId(),tempCar);
 
             System.out.println("The car has been successfully received!");
-            return tempMemmoryCar;
+
         }
 
         catch (Exception e){
             System.out.println("Error data in object" + e.getMessage());
         }
 
-        return null;
     }
 
     @KafkaListener(topics = "Users", groupId = "CarsharingU", containerFactory = "userKafkaListnerContainerFactory")
-    public User ListenUserKafka(String message) throws JsonProcessingException {
-        ObjectMapper mapper = new ObjectMapper();
-        ShortUserInfoDTO receivedDTO = mapper.readValue(message, ShortUserInfoDTO.class);
+    public void ListenUserKafka(ShortUserInfoDTO received) throws JsonProcessingException {
+
+
+        System.out.println(received);
 
         try {
 
-            tempMemmoryUser.setId(receivedDTO.getId());
-            tempMemmoryUser.setUsername(receivedDTO.getUsername());
-            tempMemmoryUser.setFirstname(receivedDTO.getFirstname());
-            tempMemmoryUser.setLastname(receivedDTO.getLastname());
-            tempMemmoryUser.setPassportCode(receivedDTO.getPassportCode());
-            tempMemmoryUser.setPhoneNumber(receivedDTO.getPhoneNumber());
-            tempMemmoryUser.setPassword(receivedDTO.getPassword());
-            tempMemmoryUser.setDriverLicense(receivedDTO.getDriverLicense());
-            tempMemmoryUser.setImguser(receivedDTO.getImguser());
+            User tempUser = new User();
+
+            tempUser.setId(received.getId());
+            tempUser.setUsername(received.getUsername());
+            tempUser.setFirstname(received.getFirstname());
+            tempUser.setLastname(received.getLastname());
+            tempUser.setPassportCode(received.getPassportCode());
+            tempUser.setPhoneNumber(received.getPhoneNumber());
+            tempUser.setPassword(received.getPassword());
+            tempUser.setDriverLicense(received.getDriverLicense());
+            tempUser.setImguser(received.getImguser());
+
+            receivedKafkaUsers.put(received.getId(),tempUser);
+
 
             System.out.println("The user has been successfully received!");
-            return tempMemmoryUser;
 
         }
         catch (Exception e){
             System.out.println("Error data in object" + e.getMessage());
         }
 
-        return null;
     }
 
     //Сделать бронь
@@ -104,9 +111,10 @@ public class ReservationService {
         Reservation reservation = new Reservation();
         reservation.setId(shortReservationInfoDTO.getId());
 
-        reservation.setUser(tempMemmoryUser);
 
-        reservation.setCar(tempMemmoryCar);
+        reservation.setUser(receivedKafkaUsers.get(shortReservationInfoDTO.getUser_id()));
+
+        reservation.setCar(receivedKafkaCars.get(shortReservationInfoDTO.getCar_id()));
 
         reservation.setStartTime(shortReservationInfoDTO.getStartTime());
         reservation.setEndTime(shortReservationInfoDTO.getEndTime());
