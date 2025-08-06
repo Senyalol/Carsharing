@@ -1,0 +1,316 @@
+[INFO] Scanning for projects...
+[INFO] 
+[INFO] ----------------< com.Reservations:ReservationsService >----------------
+[INFO] Building ReservationsService 0.0.1-SNAPSHOT
+[INFO]   from pom.xml
+[INFO] --------------------------------[ jar ]---------------------------------
+[INFO] 
+[INFO] >>> spring-boot:3.5.3:run (default-cli) > test-compile @ ReservationsService >>>
+[INFO] 
+[INFO] --- resources:3.3.1:resources (default-resources) @ ReservationsService ---
+[INFO] Copying 1 resource from src\main\resources to target\classes
+[INFO] Copying 0 resource from src\main\resources to target\classes
+[INFO] 
+[INFO] --- compiler:3.13.0:compile (default-compile) @ ReservationsService ---
+[INFO] Recompiling the module because of changed source code.
+[INFO] Compiling 18 source files with javac [debug parameters release 23] to target\classes
+[INFO] /D:/2Kurs/MaksKiano/ReservationsService/src/main/java/com/Reservations/ReservationsService/Security/JwtRequestFilter.java: D:\2Kurs\MaksKiano\ReservationsService\src\main\java\com\Reservations\ReservationsService\Security\JwtRequestFilter.java uses or overrides a deprecated API.
+[INFO] /D:/2Kurs/MaksKiano/ReservationsService/src/main/java/com/Reservations/ReservationsService/Security/JwtRequestFilter.java: Recompile with -Xlint:deprecation for details.
+[INFO] 
+[INFO] --- resources:3.3.1:testResources (default-testResources) @ ReservationsService ---
+[INFO] skip non existing resourceDirectory D:\2Kurs\MaksKiano\ReservationsService\src\test\resources
+[INFO] 
+[INFO] --- compiler:3.13.0:testCompile (default-testCompile) @ ReservationsService ---
+[INFO] Recompiling the module because of changed dependency.
+[INFO] Compiling 1 source file with javac [debug parameters release 23] to target\test-classes
+[INFO] 
+[INFO] <<< spring-boot:3.5.3:run (default-cli) < test-compile @ ReservationsService <<<
+[INFO] 
+[INFO] 
+[INFO] --- spring-boot:3.5.3:run (default-cli) @ ReservationsService ---
+[INFO] Attaching agents: []
+
+  .   ____          _            __ _ _
+ /\\ / ___'_ __ _ _(_)_ __  __ _ \ \ \ \
+( ( )\___ | '_ | '_| | '_ \/ _` | \ \ \ \
+ \\/  ___)| |_)| | | | | || (_| |  ) ) ) )
+  '  |____| .__|_| |_|_| |_\__, | / / / /
+ =========|_|==============|___/=/_/_/_/
+
+ :: Spring Boot ::                (v3.5.3)
+
+2025-08-06T23:37:30.023+03:00  INFO 3996 --- [ReservationsService] [           main] c.R.R.ReservationsServiceApplication     : Starting ReservationsServiceApplication using Java 23 with PID 3996 (D:\2Kurs\MaksKiano\ReservationsService\target\classes started by semka in D:\2Kurs\MaksKiano\ReservationsService)
+2025-08-06T23:37:30.024+03:00  INFO 3996 --- [ReservationsService] [           main] c.R.R.ReservationsServiceApplication     : No active profile set, falling back to 1 default profile: "default"
+2025-08-06T23:37:30.618+03:00  INFO 3996 --- [ReservationsService] [           main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2025-08-06T23:37:30.711+03:00  INFO 3996 --- [ReservationsService] [           main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 70 ms. Found 3 JPA repository interfaces.
+2025-08-06T23:37:31.205+03:00  INFO 3996 --- [ReservationsService] [           main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port 8082 (http)
+2025-08-06T23:37:31.217+03:00  INFO 3996 --- [ReservationsService] [           main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2025-08-06T23:37:31.217+03:00  INFO 3996 --- [ReservationsService] [           main] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/10.1.42]
+2025-08-06T23:37:31.263+03:00  INFO 3996 --- [ReservationsService] [           main] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2025-08-06T23:37:31.264+03:00  INFO 3996 --- [ReservationsService] [           main] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 1198 ms
+2025-08-06T23:37:31.327+03:00  INFO 3996 --- [ReservationsService] [           main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2025-08-06T23:37:31.483+03:00  INFO 3996 --- [ReservationsService] [           main] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Added connection org.postgresql.jdbc.PgConnection@1b4872bc
+2025-08-06T23:37:31.484+03:00  INFO 3996 --- [ReservationsService] [           main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2025-08-06T23:37:31.523+03:00  INFO 3996 --- [ReservationsService] [           main] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
+2025-08-06T23:37:31.569+03:00  INFO 3996 --- [ReservationsService] [           main] org.hibernate.Version                    : HHH000412: Hibernate ORM core version 6.6.18.Final
+2025-08-06T23:37:31.607+03:00  INFO 3996 --- [ReservationsService] [           main] o.h.c.internal.RegionFactoryInitiator    : HHH000026: Second-level cache disabled
+2025-08-06T23:37:31.834+03:00  INFO 3996 --- [ReservationsService] [           main] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
+2025-08-06T23:37:31.925+03:00  INFO 3996 --- [ReservationsService] [           main] org.hibernate.orm.connections.pooling    : HHH10001005: Database info:
+	Database JDBC URL [Connecting through datasource 'HikariDataSource (HikariPool-1)']
+	Database driver: undefined/unknown
+	Database version: 17.0
+	Autocommit mode: undefined/unknown
+	Isolation level: undefined/unknown
+	Minimum pool size: undefined/unknown
+	Maximum pool size: undefined/unknown
+2025-08-06T23:37:33.094+03:00  INFO 3996 --- [ReservationsService] [           main] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2025-08-06T23:37:33.096+03:00  INFO 3996 --- [ReservationsService] [           main] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2025-08-06T23:37:33.507+03:00  WARN 3996 --- [ReservationsService] [           main] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2025-08-06T23:37:33.649+03:00  INFO 3996 --- [ReservationsService] [           main] r$InitializeUserDetailsManagerConfigurer : Global AuthenticationManager configured with UserDetailsService bean with name userDetailsServiceImpl
+2025-08-06T23:37:33.947+03:00  INFO 3996 --- [ReservationsService] [           main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port 8082 (http) with context path '/'
+2025-08-06T23:37:33.982+03:00  INFO 3996 --- [ReservationsService] [           main] o.a.k.clients.consumer.ConsumerConfig    : ConsumerConfig values: 
+	allow.auto.create.topics = true
+	auto.commit.interval.ms = 5000
+	auto.include.jmx.reporter = true
+	auto.offset.reset = latest
+	bootstrap.servers = [localhost:9092]
+	check.crcs = true
+	client.dns.lookup = use_all_dns_ips
+	client.id = consumer-CarsharingC-1
+	client.rack = 
+	connections.max.idle.ms = 540000
+	default.api.timeout.ms = 60000
+	enable.auto.commit = false
+	exclude.internal.topics = true
+	fetch.max.bytes = 52428800
+	fetch.max.wait.ms = 500
+	fetch.min.bytes = 1
+	group.id = CarsharingC
+	group.instance.id = null
+	heartbeat.interval.ms = 3000
+	interceptor.classes = []
+	internal.leave.group.on.close = true
+	internal.throw.on.fetch.stable.offset.unsupported = false
+	isolation.level = read_uncommitted
+	key.deserializer = class org.apache.kafka.common.serialization.StringDeserializer
+	max.partition.fetch.bytes = 1048576
+	max.poll.interval.ms = 300000
+	max.poll.records = 500
+	metadata.max.age.ms = 300000
+	metric.reporters = []
+	metrics.num.samples = 2
+	metrics.recording.level = INFO
+	metrics.sample.window.ms = 30000
+	partition.assignment.strategy = [class org.apache.kafka.clients.consumer.RangeAssignor, class org.apache.kafka.clients.consumer.CooperativeStickyAssignor]
+	receive.buffer.bytes = 65536
+	reconnect.backoff.max.ms = 1000
+	reconnect.backoff.ms = 50
+	request.timeout.ms = 30000
+	retry.backoff.ms = 100
+	sasl.client.callback.handler.class = null
+	sasl.jaas.config = null
+	sasl.kerberos.kinit.cmd = /usr/bin/kinit
+	sasl.kerberos.min.time.before.relogin = 60000
+	sasl.kerberos.service.name = null
+	sasl.kerberos.ticket.renew.jitter = 0.05
+	sasl.kerberos.ticket.renew.window.factor = 0.8
+	sasl.login.callback.handler.class = null
+	sasl.login.class = null
+	sasl.login.connect.timeout.ms = null
+	sasl.login.read.timeout.ms = null
+	sasl.login.refresh.buffer.seconds = 300
+	sasl.login.refresh.min.period.seconds = 60
+	sasl.login.refresh.window.factor = 0.8
+	sasl.login.refresh.window.jitter = 0.05
+	sasl.login.retry.backoff.max.ms = 10000
+	sasl.login.retry.backoff.ms = 100
+	sasl.mechanism = GSSAPI
+	sasl.oauthbearer.clock.skew.seconds = 30
+	sasl.oauthbearer.expected.audience = null
+	sasl.oauthbearer.expected.issuer = null
+	sasl.oauthbearer.jwks.endpoint.refresh.ms = 3600000
+	sasl.oauthbearer.jwks.endpoint.retry.backoff.max.ms = 10000
+	sasl.oauthbearer.jwks.endpoint.retry.backoff.ms = 100
+	sasl.oauthbearer.jwks.endpoint.url = null
+	sasl.oauthbearer.scope.claim.name = scope
+	sasl.oauthbearer.sub.claim.name = sub
+	sasl.oauthbearer.token.endpoint.url = null
+	security.protocol = PLAINTEXT
+	security.providers = null
+	send.buffer.bytes = 131072
+	session.timeout.ms = 45000
+	socket.connection.setup.timeout.max.ms = 30000
+	socket.connection.setup.timeout.ms = 10000
+	ssl.cipher.suites = null
+	ssl.enabled.protocols = [TLSv1.2, TLSv1.3]
+	ssl.endpoint.identification.algorithm = https
+	ssl.engine.factory.class = null
+	ssl.key.password = null
+	ssl.keymanager.algorithm = SunX509
+	ssl.keystore.certificate.chain = null
+	ssl.keystore.key = null
+	ssl.keystore.location = null
+	ssl.keystore.password = null
+	ssl.keystore.type = JKS
+	ssl.protocol = TLSv1.3
+	ssl.provider = null
+	ssl.secure.random.implementation = null
+	ssl.trustmanager.algorithm = PKIX
+	ssl.truststore.certificates = null
+	ssl.truststore.location = null
+	ssl.truststore.password = null
+	ssl.truststore.type = JKS
+	value.deserializer = class org.springframework.kafka.support.serializer.JsonDeserializer
+
+2025-08-06T23:37:34.158+03:00  INFO 3996 --- [ReservationsService] [           main] o.a.kafka.common.utils.AppInfoParser     : Kafka version: 3.4.1
+2025-08-06T23:37:34.158+03:00  INFO 3996 --- [ReservationsService] [           main] o.a.kafka.common.utils.AppInfoParser     : Kafka commitId: 8a516edc2755df89
+2025-08-06T23:37:34.158+03:00  INFO 3996 --- [ReservationsService] [           main] o.a.kafka.common.utils.AppInfoParser     : Kafka startTimeMs: 1754512654157
+2025-08-06T23:37:34.161+03:00  INFO 3996 --- [ReservationsService] [           main] fkaConsumerFactory$ExtendedKafkaConsumer : [Consumer clientId=consumer-CarsharingC-1, groupId=CarsharingC] Subscribed to topic(s): Cars
+2025-08-06T23:37:34.168+03:00  INFO 3996 --- [ReservationsService] [           main] o.a.k.clients.consumer.ConsumerConfig    : ConsumerConfig values: 
+	allow.auto.create.topics = true
+	auto.commit.interval.ms = 5000
+	auto.include.jmx.reporter = true
+	auto.offset.reset = latest
+	bootstrap.servers = [localhost:9092]
+	check.crcs = true
+	client.dns.lookup = use_all_dns_ips
+	client.id = consumer-CarsharingU-2
+	client.rack = 
+	connections.max.idle.ms = 540000
+	default.api.timeout.ms = 60000
+	enable.auto.commit = false
+	exclude.internal.topics = true
+	fetch.max.bytes = 52428800
+	fetch.max.wait.ms = 500
+	fetch.min.bytes = 1
+	group.id = CarsharingU
+	group.instance.id = null
+	heartbeat.interval.ms = 3000
+	interceptor.classes = []
+	internal.leave.group.on.close = true
+	internal.throw.on.fetch.stable.offset.unsupported = false
+	isolation.level = read_uncommitted
+	key.deserializer = class org.apache.kafka.common.serialization.StringDeserializer
+	max.partition.fetch.bytes = 1048576
+	max.poll.interval.ms = 300000
+	max.poll.records = 500
+	metadata.max.age.ms = 300000
+	metric.reporters = []
+	metrics.num.samples = 2
+	metrics.recording.level = INFO
+	metrics.sample.window.ms = 30000
+	partition.assignment.strategy = [class org.apache.kafka.clients.consumer.RangeAssignor, class org.apache.kafka.clients.consumer.CooperativeStickyAssignor]
+	receive.buffer.bytes = 65536
+	reconnect.backoff.max.ms = 1000
+	reconnect.backoff.ms = 50
+	request.timeout.ms = 30000
+	retry.backoff.ms = 100
+	sasl.client.callback.handler.class = null
+	sasl.jaas.config = null
+	sasl.kerberos.kinit.cmd = /usr/bin/kinit
+	sasl.kerberos.min.time.before.relogin = 60000
+	sasl.kerberos.service.name = null
+	sasl.kerberos.ticket.renew.jitter = 0.05
+	sasl.kerberos.ticket.renew.window.factor = 0.8
+	sasl.login.callback.handler.class = null
+	sasl.login.class = null
+	sasl.login.connect.timeout.ms = null
+	sasl.login.read.timeout.ms = null
+	sasl.login.refresh.buffer.seconds = 300
+	sasl.login.refresh.min.period.seconds = 60
+	sasl.login.refresh.window.factor = 0.8
+	sasl.login.refresh.window.jitter = 0.05
+	sasl.login.retry.backoff.max.ms = 10000
+	sasl.login.retry.backoff.ms = 100
+	sasl.mechanism = GSSAPI
+	sasl.oauthbearer.clock.skew.seconds = 30
+	sasl.oauthbearer.expected.audience = null
+	sasl.oauthbearer.expected.issuer = null
+	sasl.oauthbearer.jwks.endpoint.refresh.ms = 3600000
+	sasl.oauthbearer.jwks.endpoint.retry.backoff.max.ms = 10000
+	sasl.oauthbearer.jwks.endpoint.retry.backoff.ms = 100
+	sasl.oauthbearer.jwks.endpoint.url = null
+	sasl.oauthbearer.scope.claim.name = scope
+	sasl.oauthbearer.sub.claim.name = sub
+	sasl.oauthbearer.token.endpoint.url = null
+	security.protocol = PLAINTEXT
+	security.providers = null
+	send.buffer.bytes = 131072
+	session.timeout.ms = 45000
+	socket.connection.setup.timeout.max.ms = 30000
+	socket.connection.setup.timeout.ms = 10000
+	ssl.cipher.suites = null
+	ssl.enabled.protocols = [TLSv1.2, TLSv1.3]
+	ssl.endpoint.identification.algorithm = https
+	ssl.engine.factory.class = null
+	ssl.key.password = null
+	ssl.keymanager.algorithm = SunX509
+	ssl.keystore.certificate.chain = null
+	ssl.keystore.key = null
+	ssl.keystore.location = null
+	ssl.keystore.password = null
+	ssl.keystore.type = JKS
+	ssl.protocol = TLSv1.3
+	ssl.provider = null
+	ssl.secure.random.implementation = null
+	ssl.trustmanager.algorithm = PKIX
+	ssl.truststore.certificates = null
+	ssl.truststore.location = null
+	ssl.truststore.password = null
+	ssl.truststore.type = JKS
+	value.deserializer = class org.springframework.kafka.support.serializer.JsonDeserializer
+
+2025-08-06T23:37:34.175+03:00  INFO 3996 --- [ReservationsService] [           main] o.a.kafka.common.utils.AppInfoParser     : Kafka version: 3.4.1
+2025-08-06T23:37:34.175+03:00  INFO 3996 --- [ReservationsService] [           main] o.a.kafka.common.utils.AppInfoParser     : Kafka commitId: 8a516edc2755df89
+2025-08-06T23:37:34.175+03:00  INFO 3996 --- [ReservationsService] [           main] o.a.kafka.common.utils.AppInfoParser     : Kafka startTimeMs: 1754512654175
+2025-08-06T23:37:34.175+03:00  INFO 3996 --- [ReservationsService] [           main] fkaConsumerFactory$ExtendedKafkaConsumer : [Consumer clientId=consumer-CarsharingU-2, groupId=CarsharingU] Subscribed to topic(s): Users
+2025-08-06T23:37:34.181+03:00  INFO 3996 --- [ReservationsService] [           main] c.R.R.ReservationsServiceApplication     : Started ReservationsServiceApplication in 4.465 seconds (process running for 4.746)
+2025-08-06T23:37:34.626+03:00  INFO 3996 --- [ReservationsService] [ntainer#0-0-C-1] org.apache.kafka.clients.Metadata        : [Consumer clientId=consumer-CarsharingC-1, groupId=CarsharingC] Resetting the last seen epoch of partition Cars-0 to 0 since the associated topicId changed from null to 1ss48VHoQIa3MHFZm9O2Cg
+2025-08-06T23:37:34.626+03:00  INFO 3996 --- [ReservationsService] [ntainer#1-0-C-1] org.apache.kafka.clients.Metadata        : [Consumer clientId=consumer-CarsharingU-2, groupId=CarsharingU] Resetting the last seen epoch of partition Users-0 to 0 since the associated topicId changed from null to NhDyMCuuSeqMDbbkj7tLpg
+2025-08-06T23:37:34.628+03:00  INFO 3996 --- [ReservationsService] [ntainer#0-0-C-1] org.apache.kafka.clients.Metadata        : [Consumer clientId=consumer-CarsharingC-1, groupId=CarsharingC] Cluster ID: EB_B3F22RRCf8pNCU739rA
+2025-08-06T23:37:34.628+03:00  INFO 3996 --- [ReservationsService] [ntainer#1-0-C-1] org.apache.kafka.clients.Metadata        : [Consumer clientId=consumer-CarsharingU-2, groupId=CarsharingU] Cluster ID: EB_B3F22RRCf8pNCU739rA
+2025-08-06T23:37:34.684+03:00  INFO 3996 --- [ReservationsService] [ntainer#1-0-C-1] o.a.k.c.c.internals.ConsumerCoordinator  : [Consumer clientId=consumer-CarsharingU-2, groupId=CarsharingU] Discovered group coordinator localhost:9092 (id: 2147483647 rack: null)
+2025-08-06T23:37:34.684+03:00  INFO 3996 --- [ReservationsService] [ntainer#0-0-C-1] o.a.k.c.c.internals.ConsumerCoordinator  : [Consumer clientId=consumer-CarsharingC-1, groupId=CarsharingC] Discovered group coordinator localhost:9092 (id: 2147483647 rack: null)
+2025-08-06T23:37:34.686+03:00  INFO 3996 --- [ReservationsService] [ntainer#1-0-C-1] o.a.k.c.c.internals.ConsumerCoordinator  : [Consumer clientId=consumer-CarsharingU-2, groupId=CarsharingU] (Re-)joining group
+2025-08-06T23:37:34.686+03:00  INFO 3996 --- [ReservationsService] [ntainer#0-0-C-1] o.a.k.c.c.internals.ConsumerCoordinator  : [Consumer clientId=consumer-CarsharingC-1, groupId=CarsharingC] (Re-)joining group
+2025-08-06T23:37:34.822+03:00  INFO 3996 --- [ReservationsService] [ntainer#1-0-C-1] o.a.k.c.c.internals.ConsumerCoordinator  : [Consumer clientId=consumer-CarsharingU-2, groupId=CarsharingU] Request joining group due to: need to re-join with the given member-id: consumer-CarsharingU-2-560d3fc1-aa17-4e45-9326-1f37535c90bd
+2025-08-06T23:37:34.822+03:00  INFO 3996 --- [ReservationsService] [ntainer#0-0-C-1] o.a.k.c.c.internals.ConsumerCoordinator  : [Consumer clientId=consumer-CarsharingC-1, groupId=CarsharingC] Request joining group due to: need to re-join with the given member-id: consumer-CarsharingC-1-f49688fc-c925-4d75-a050-3163a3509af3
+2025-08-06T23:37:34.822+03:00  INFO 3996 --- [ReservationsService] [ntainer#1-0-C-1] o.a.k.c.c.internals.ConsumerCoordinator  : [Consumer clientId=consumer-CarsharingU-2, groupId=CarsharingU] Request joining group due to: rebalance failed due to 'The group member needs to have a valid member id before actually entering a consumer group.' (MemberIdRequiredException)
+2025-08-06T23:37:34.822+03:00  INFO 3996 --- [ReservationsService] [ntainer#0-0-C-1] o.a.k.c.c.internals.ConsumerCoordinator  : [Consumer clientId=consumer-CarsharingC-1, groupId=CarsharingC] Request joining group due to: rebalance failed due to 'The group member needs to have a valid member id before actually entering a consumer group.' (MemberIdRequiredException)
+2025-08-06T23:37:34.822+03:00  INFO 3996 --- [ReservationsService] [ntainer#1-0-C-1] o.a.k.c.c.internals.ConsumerCoordinator  : [Consumer clientId=consumer-CarsharingU-2, groupId=CarsharingU] (Re-)joining group
+2025-08-06T23:37:34.822+03:00  INFO 3996 --- [ReservationsService] [ntainer#0-0-C-1] o.a.k.c.c.internals.ConsumerCoordinator  : [Consumer clientId=consumer-CarsharingC-1, groupId=CarsharingC] (Re-)joining group
+2025-08-06T23:37:34.876+03:00  INFO 3996 --- [ReservationsService] [ntainer#1-0-C-1] o.a.k.c.c.internals.ConsumerCoordinator  : [Consumer clientId=consumer-CarsharingU-2, groupId=CarsharingU] Successfully joined group with generation Generation{generationId=42, memberId='consumer-CarsharingU-2-560d3fc1-aa17-4e45-9326-1f37535c90bd', protocol='range'}
+2025-08-06T23:37:34.878+03:00  INFO 3996 --- [ReservationsService] [ntainer#1-0-C-1] o.a.k.c.c.internals.ConsumerCoordinator  : [Consumer clientId=consumer-CarsharingU-2, groupId=CarsharingU] Finished assignment for group at generation 42: {consumer-CarsharingU-2-560d3fc1-aa17-4e45-9326-1f37535c90bd=Assignment(partitions=[Users-0])}
+2025-08-06T23:37:34.881+03:00  INFO 3996 --- [ReservationsService] [ntainer#0-0-C-1] o.a.k.c.c.internals.ConsumerCoordinator  : [Consumer clientId=consumer-CarsharingC-1, groupId=CarsharingC] Successfully joined group with generation Generation{generationId=22, memberId='consumer-CarsharingC-1-f49688fc-c925-4d75-a050-3163a3509af3', protocol='range'}
+2025-08-06T23:37:34.881+03:00  INFO 3996 --- [ReservationsService] [ntainer#0-0-C-1] o.a.k.c.c.internals.ConsumerCoordinator  : [Consumer clientId=consumer-CarsharingC-1, groupId=CarsharingC] Finished assignment for group at generation 22: {consumer-CarsharingC-1-f49688fc-c925-4d75-a050-3163a3509af3=Assignment(partitions=[Cars-0])}
+2025-08-06T23:37:35.009+03:00  INFO 3996 --- [ReservationsService] [ntainer#0-0-C-1] o.a.k.c.c.internals.ConsumerCoordinator  : [Consumer clientId=consumer-CarsharingC-1, groupId=CarsharingC] Successfully synced group in generation Generation{generationId=22, memberId='consumer-CarsharingC-1-f49688fc-c925-4d75-a050-3163a3509af3', protocol='range'}
+2025-08-06T23:37:35.009+03:00  INFO 3996 --- [ReservationsService] [ntainer#1-0-C-1] o.a.k.c.c.internals.ConsumerCoordinator  : [Consumer clientId=consumer-CarsharingU-2, groupId=CarsharingU] Successfully synced group in generation Generation{generationId=42, memberId='consumer-CarsharingU-2-560d3fc1-aa17-4e45-9326-1f37535c90bd', protocol='range'}
+2025-08-06T23:37:35.010+03:00  INFO 3996 --- [ReservationsService] [ntainer#1-0-C-1] o.a.k.c.c.internals.ConsumerCoordinator  : [Consumer clientId=consumer-CarsharingU-2, groupId=CarsharingU] Notifying assignor about the new Assignment(partitions=[Users-0])
+2025-08-06T23:37:35.010+03:00  INFO 3996 --- [ReservationsService] [ntainer#0-0-C-1] o.a.k.c.c.internals.ConsumerCoordinator  : [Consumer clientId=consumer-CarsharingC-1, groupId=CarsharingC] Notifying assignor about the new Assignment(partitions=[Cars-0])
+2025-08-06T23:37:35.012+03:00  INFO 3996 --- [ReservationsService] [ntainer#0-0-C-1] o.a.k.c.c.internals.ConsumerCoordinator  : [Consumer clientId=consumer-CarsharingC-1, groupId=CarsharingC] Adding newly assigned partitions: Cars-0
+2025-08-06T23:37:35.012+03:00  INFO 3996 --- [ReservationsService] [ntainer#1-0-C-1] o.a.k.c.c.internals.ConsumerCoordinator  : [Consumer clientId=consumer-CarsharingU-2, groupId=CarsharingU] Adding newly assigned partitions: Users-0
+2025-08-06T23:37:35.036+03:00  INFO 3996 --- [ReservationsService] [ntainer#0-0-C-1] o.a.k.c.c.internals.ConsumerCoordinator  : [Consumer clientId=consumer-CarsharingC-1, groupId=CarsharingC] Setting offset for partition Cars-0 to the committed offset FetchPosition{offset=1, offsetEpoch=Optional.empty, currentLeader=LeaderAndEpoch{leader=Optional[localhost:9092 (id: 0 rack: null)], epoch=0}}
+2025-08-06T23:37:35.036+03:00  INFO 3996 --- [ReservationsService] [ntainer#1-0-C-1] o.a.k.c.c.internals.ConsumerCoordinator  : [Consumer clientId=consumer-CarsharingU-2, groupId=CarsharingU] Setting offset for partition Users-0 to the committed offset FetchPosition{offset=4, offsetEpoch=Optional.empty, currentLeader=LeaderAndEpoch{leader=Optional[localhost:9092 (id: 0 rack: null)], epoch=0}}
+2025-08-06T23:37:35.037+03:00  INFO 3996 --- [ReservationsService] [ntainer#1-0-C-1] o.s.k.l.KafkaMessageListenerContainer    : CarsharingU: partitions assigned: [Users-0]
+2025-08-06T23:37:35.037+03:00  INFO 3996 --- [ReservationsService] [ntainer#0-0-C-1] o.s.k.l.KafkaMessageListenerContainer    : CarsharingC: partitions assigned: [Cars-0]
+ShortUserInfoDTO(id=6, username=Kola, firstname=Богдан, lastname=Титомир, passportCode=BM651643634, phoneNumber=+375297809038, password=$2a$04$iVtToW1lJR1OylVa64KimeVM.irW9KPhxl9fH0UiTzwZ2YAbywKAy, driverLicense=2025-08-10, imguser=https://seo-gravity.ru/wp-content/themes/seogravity/static/img/assets/contacts/nophoto.png, adminkey=null)
+The user has been successfully received!
+ShortCarInfoDTO(id=37, make=Russia, model=Zhiguli, year=1977, licensePlate=666, availability=false, location=Place Number 64, photoUrl=https://tribuna.ee/wp-content/uploads/2020/07/800px-Vaz_2103.jpg, engineType=The drova, numberOfSeats=4, weight=1150, engineVolume=1, maxSpeed=100, gearboxType=Mehcanic, describe=Ded Imba Car, horsep=200, pricePerHour=59.9)
+The car has been successfully received!
+2025-08-06T23:40:19.995+03:00  INFO 3996 --- [ReservationsService] [nio-8082-exec-2] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2025-08-06T23:40:20.000+03:00  INFO 3996 --- [ReservationsService] [nio-8082-exec-2] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2025-08-06T23:40:20.009+03:00  INFO 3996 --- [ReservationsService] [nio-8082-exec-2] o.s.web.servlet.DispatcherServlet        : Completed initialization in 9 ms
+2025-08-06T23:40:53.848+03:00  WARN 3996 --- [ReservationsService] [nio-8082-exec-3] .w.s.m.s.DefaultHandlerExceptionResolver : Resolved [org.springframework.web.HttpRequestMethodNotSupportedException: Request method 'GET' is not supported]
+[INFO] ------------------------------------------------------------------------
+[INFO] BUILD FAILURE
+[INFO] ------------------------------------------------------------------------
+[INFO] Total time:  05:14 min
+[INFO] Finished at: 2025-08-06T23:42:39+03:00
+[INFO] ------------------------------------------------------------------------
+[ERROR] Failed to execute goal org.springframework.boot:spring-boot-maven-plugin:3.5.3:run (default-cli) on project ReservationsService: Process terminated with exit code: 1 -> [Help 1]
+[ERROR] 
+[ERROR] To see the full stack trace of the errors, re-run Maven with the -e switch.
+[ERROR] Re-run Maven using the -X switch to enable full debug logging.
+[ERROR] 
+[ERROR] For more information about the errors and possible solutions, please read the following articles:
+[ERROR] [Help 1] http://cwiki.apache.org/confluence/display/MAVEN/MojoExecutionException

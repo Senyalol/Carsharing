@@ -33,11 +33,6 @@ public class CarService {
     }
 
 
-    @KafkaListener(topics = "JWTKafka", groupId = "JWT", containerFactory = "kafkaListenerContainerFactory")
-    public void ListenJwt(String jwt){
-        System.out.println("JWT: " + jwt);
-    }
-
 //    @KafkaListener(topics = "C")
     public void SendKafkaCar(int certainCarId) {
 
