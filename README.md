@@ -15,14 +15,22 @@ Already a pro? Just edit this README.md and make it your own. Want to make it ea
 
 ```
 cd existing_repo
+<<<<<<< HEAD
 git remote add origin https://gitlab.com/senyalol-group/carsharing.git
+=======
+git remote add origin https://gitlab.com/Senyalol/carsharing.git
+>>>>>>> f61c00a52184d1d513335bda76fcdb0205f895f9
 git branch -M main
 git push -uf origin main
 ```
 
 ## Integrate with your tools
 
+<<<<<<< HEAD
 - [ ] [Set up project integrations](https://gitlab.com/senyalol-group/carsharing/-/settings/integrations)
+=======
+- [ ] [Set up project integrations](https://gitlab.com/Senyalol/carsharing/-/settings/integrations)
+>>>>>>> f61c00a52184d1d513335bda76fcdb0205f895f9
 
 ## Collaborate with your team
 
