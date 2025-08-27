@@ -41,7 +41,7 @@ public class SecurityConfig {
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception{
         http.csrf(cs -> cs.disable())
                 .cors(cors -> cors.configurationSource(corsConfigurationSource()))
-                .authorizeHttpRequests(authz -> authz.requestMatchers("/api/cars/**").authenticated());
+                .authorizeHttpRequests(authz -> authz.requestMatchers("/api/cars/**").permitAll()/*.authenticated()*/);
 
         http.addFilterBefore(jwtRequestFilter,UsernamePasswordAuthenticationFilter.class);
         return http.build();
