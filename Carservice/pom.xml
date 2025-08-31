@@ -123,6 +123,19 @@
 			<version>2.18.2</version>
 		</dependency>
 
+		<!-- Зависимости для миграции БД -->
+		<dependency>
+			<groupId>org.flywaydb</groupId>
+			<artifactId>flyway-core</artifactId>
+			<version>11.1.0</version>
+		</dependency>
+		<dependency>
+			<groupId>org.flywaydb</groupId>
+			<artifactId>flyway-database-postgresql</artifactId>
+			<version>11.1.0</version>
+		</dependency>
+		<!-- Зависимости для миграции БД -->
+
 		<dependency>
 			<groupId>io.jsonwebtoken</groupId>
 			<artifactId>jjwt</artifactId>

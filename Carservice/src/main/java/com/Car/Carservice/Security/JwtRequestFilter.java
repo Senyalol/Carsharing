@@ -14,20 +14,22 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
+import org.springframework.beans.factory.annotation.Value;
 
 import java.io.IOException;
 
 @Component
 public class JwtRequestFilter extends OncePerRequestFilter {
 
-    $
+
     private final String secretKey;
 
     private final UserDetailsService userDetailsService;
 
     @Autowired
-    public JwtRequestFilter(UserDetailsServiceImpl userDetailsServiceimpl) {
+    public JwtRequestFilter(UserDetailsServiceImpl userDetailsServiceimpl, @Value("${jwt.secret}") String secretKey) {
         this.userDetailsService = userDetailsServiceimpl;
+        this.secretKey = secretKey;
     }
 
     @Override
