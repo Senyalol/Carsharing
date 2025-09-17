@@ -17,10 +17,10 @@ spring:
     validate-on-migrate: false
     enabled: true
     locations: classpath:db/migration
-    schemas: car
-    default-schema: car
-    create-schemas: true
-    table: flyway_car_history
+    schemas: public
+    default-schema: public
+#    create-schemas: true
+#    table: flyway_car_history
 
   jpa:
     show-sql: true
