@@ -1,0 +1,20 @@
+[33m986d814[m[33m ([m[1;36mHEAD[m[33m -> [m[1;32mdev[m[33m)[m split database into parts
+[33m7fe5ee0[m[33m ([m[1;31morigin/dev[m[33m)[m developed Dockerfile for car image V2.0
+[33m795ddaa[m developed Dockerfile for car image
+[33mdd7e994[m[33m ([m[1;31morigin/main[m[33m, [m[1;32mmain[m[33m)[m add docker compose; dockerfile
+[33m143aa5d[m intermidiate commit v2
+[33mf61c00a[m Initial commit
+[33m21bca5d[m intermediate commit
+[33m734d0a4[m Initial commit
+[33maf32c4c[m for push gitlab
+[33mec4800e[m Initial commit
+[33m212a5af[m necessary tune JWT authorization in ReservationsService
+[33m23f9aa6[m add Flyway migration
+[33mbd512cb[m add security microservice for reservations with help kafka , but this version no tested
+[33mcd75f83[m add security microservice for Car with help kafka
+[33m9d0aceb[m Add broker kafka in Carservice, Carsharing, ReservationService , but without JWT authorization
+[33mdf7a670[m Don't work Car and User microservice , but code is present
+[33m6eba8ba[m First message CarDTO class From Carservice to ReservationService with the help Kafka
+[33m1faf631[m add reservation microservice
+[33m1fa2042[m add car microservice
+[33m0bc0cc9[m split into microservices

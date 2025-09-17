@@ -1,30 +1,64 @@
 spring:
   application:
     name: Carservice
-
   datasource:
     url: jdbc:postgresql://${POSTGRES_HOST}:${POSTGRES_PORT}/${POSTGRES_DB}
     username: ${POSTGRES_USERNAME}
     password: ${POSTGRES_PASSWORD}
     driver-class-name: org.postgresql.Driver
 
+#  jpa:
+#    properties:
+#      hibernate:
+#        default_schema: public
+
+  flyway:
+    repair-on-migrate: true
+    validate-on-migrate: false
+    enabled: true
+    locations: classpath:db/migration
+    schemas: car
+    default-schema: car
+    create-schemas: true
+    table: flyway_car_history
+
+  jpa:
+    show-sql: true
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+
   kafka:
     bootstrap-servers: kafka:9092
 
-server:
-  port: ${SERVER_PORT}
+#  flyway:
+#    enabled: true
+#    locations: classpath:db/migration
+#    schemas: public
+#    default-schema: public
 
-jwt:
-  secret: ${JWT_SECRET}
+#server:
+#  port: ${SERVER_PORT}
+
+##jwt:
+##  secret: ${JWT_SECRET}
 
 
-#spring.application.name=Carservice
+#Версия с БД на компьютере
+# |
+# v
+
+#spring:
+#  application:
+#    name: Carservice
+#  datasource:
+#    url: jdbc:postgresql://localhost:5432/Carsharing
+#    username: postgres
+#    password: 1111
+#    driver-class-name: org.postgresql.Driver
 #
-#server.port=8081
+#server:
+#  port: 8081
 #
-#spring.datasource.url=jdbc:postgresql://localhost:5432/Carsharing
-#spring.datasource.username=postgres
-#spring.datasource.password=1111
-#spring.datasource.driver-class-name=org.postgresql.Driver
-#
-#spring.kafka.bootstrap-servers=localhost:9092
+#  kafka:
+#    bootstrap-servers: localhost:9092

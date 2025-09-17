@@ -1,4 +1,4 @@
-CREATE TABLE Cars (
+CREATE TABLE cars (
                       car_id SERIAL PRIMARY KEY,
                       make VARCHAR(50) NOT NULL,
                       model VARCHAR(100) NOT NULL,
@@ -7,7 +7,3 @@ CREATE TABLE Cars (
                       availability BOOLEAN,
                       location VARCHAR(100) NOT NULL
 );
-
-CREATE SCHEMA car_schema;
-
-ALTER TABLE Cars SET SCHEMA car_schema;

@@ -6,8 +6,8 @@ import jakarta.validation.constraints.Size;
 import lombok.Getter;
 import lombok.Setter;
 
-import java.util.LinkedHashSet;
-import java.util.Set;
+//import java.util.LinkedHashSet;
+//import java.util.Set;
 
 @Getter
 @Setter
@@ -80,7 +80,7 @@ public class Car {
     @Column(name = "price_per_hour")
     private Double pricePerHour;
 
-    @OneToMany(mappedBy = "car")
-    private Set<Reservation> reservations = new LinkedHashSet<>();
+//    @OneToMany(mappedBy = "car")
+//    private Set<Reservation> reservations = new LinkedHashSet<>();
 
 }
