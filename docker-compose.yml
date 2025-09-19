@@ -27,6 +27,19 @@ services:
     networks:
       - app-network
 
+  postgres-reservations:
+    image: postgres:latest
+    container_name: dbReservations
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: 1111
+      POSTGRES_DB: reservationsDB
+    ports:
+      - "5433:5432"
+    volumes:
+      - postgres_reservations:/var/lib/postgresql/data
+    networks:
+      - app-network
 
   kafka:
     image: apache/kafka:latest
@@ -51,14 +64,17 @@ services:
     networks:
       - app-network
 
-#  kafka-ui:
-#    image: provectuslabs/kafka-ui:latest
-#    ports:
-#      - 8082:8080
-#    environment:
-#      DYNAMIC_CONFIG_ENABLED: true
-#    depends_on:
-#      - kafka
+  kafka-ui:
+    image: provectuslabs/kafka-ui:latest
+    ports:
+      - "9090:9090"
+    environment:
+      SERVER_PORT: 9090
+      DYNAMIC_CONFIG_ENABLED: true
+    depends_on:
+      - kafka
+    networks:
+      - app-network
 
   auth:
     build:
@@ -101,12 +117,35 @@ services:
     networks:
       - app-network
 
+  reservations:
+    build:
+      context: .
+      dockerfile: DockerfileReservation
+    ports:
+      - "8082:8082"
+    environment:
+      POSTGRES_USERNAME: postgres
+      POSTGRES_PASSWORD: 1111
+      POSTGRES_DB: reservationsDB
+      POSTGRES_HOST: postgres-reservations
+      POSTGRES_PORT: 5432
+      SERVER_PORT: 8082
+
+    depends_on:
+      - postgres-reservations
+      - car
+      - auth
+      - kafka
+    networks:
+      - app-network
+
 #    networks:
 #      - app
 
 volumes:
   postgres_users:
   postgres_cars:
+  postgres_reservations:
   kafka_data:
 
 networks:

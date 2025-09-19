@@ -1,0 +1,29 @@
+FROM maven:3.9.9-eclipse-temurin-23 AS build
+
+ENV POSTGRES_USERNAME=postgres
+ENV POSTGRES_PASSWORD=1111
+ENV POSTGRES_DB=reservationsDB
+ENV POSTGRES_HOST=postgres-reservations
+ENV POSTGRES_PORT=5432
+
+WORKDIR /build
+
+COPY ShortCarInfoDTO .
+
+RUN mvn clean install
+
+WORKDIR /Rservice
+
+COPY ReservationsService .
+
+RUN mvn clean install -DskipTests
+
+FROM eclipse-temurin:23-jre-alpine
+
+WORKDIR /reservation
+
+COPY --from=build /Rservice/target/*.jar booking.jar
+
+EXPOSE 8082
+
+ENTRYPOINT ["java", "-jar", "booking.jar"]

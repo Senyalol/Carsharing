@@ -1,5 +1,7 @@
 package com.Reservations.ReservationsService.Service;
 
+import com.Reservations.ReservationsService.Repository.CarRepository;
+import com.Reservations.ReservationsService.Repository.UserRepository;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import dto.ShortCarInfoDTO;
 import com.Reservations.ReservationsService.DTO.ShortReservationInfoDTO;
@@ -27,10 +29,14 @@ public class ReservationService {
     private final Map<Integer,Car> receivedKafkaCars = new HashMap<>();
     private final Map<Integer,User> receivedKafkaUsers = new HashMap<>();
     private final ReservationRepository reservationRepository;
+    private final UserRepository userRepository;
+    private final CarRepository carRepository;
 
     @Autowired
-    public ReservationService(ReservationRepository reservationRepository) {
+    public ReservationService(ReservationRepository reservationRepository, UserRepository userRepository, CarRepository carRepository) {
         this.reservationRepository = reservationRepository;
+        this.userRepository = userRepository;
+        this.carRepository = carRepository;
     }
 
     //Получатель автомобиля , записывает автомобиль из другого сервиса в репозиторий
@@ -39,39 +45,45 @@ public class ReservationService {
     public void ListenCarKafka(ShortCarInfoDTO carDTO) throws JsonProcessingException {
 
         System.out.println(carDTO);
+         int CarId = carDTO.getId();
 
-        try{
+         if(carRepository.findById(CarId) == null) {
 
-            Car tempCar = new Car();
+             try {
 
-            tempCar.setId(carDTO.getId());
-            tempCar.setMake(carDTO.getMake());
-            tempCar.setModel(carDTO.getModel());
-            tempCar.setYear(carDTO.getYear());
-            tempCar.setLicensePlate(carDTO.getLicensePlate());
-            tempCar.setAvailability(carDTO.getAvailability());
-            tempCar.setLocation(carDTO.getLocation());
-            tempCar.setPhotoUrl(carDTO.getPhotoUrl());
-            tempCar.setEngineType(carDTO.getEngineType());
-            tempCar.setNumberOfSeats(carDTO.getNumberOfSeats());
-            tempCar.setWeight(carDTO.getWeight());
-            tempCar.setEngineVolume(carDTO.getEngineVolume());
-            tempCar.setMaxSpeed(carDTO.getMaxSpeed());
-            tempCar.setGearboxType(carDTO.getGearboxType());
-            tempCar.setDescribe(carDTO.getDescribe());
-            tempCar.setHorsep(carDTO.getHorsep());
-            tempCar.setPricePerHour(carDTO.getPricePerHour());
+                 Car tempCar = new Car();
 
-            receivedKafkaCars.put(carDTO.getId(),tempCar);
+                 tempCar.setId(carDTO.getId());
+                 tempCar.setMake(carDTO.getMake());
+                 tempCar.setModel(carDTO.getModel());
+                 tempCar.setYear(carDTO.getYear());
+                 tempCar.setLicensePlate(carDTO.getLicensePlate());
+                 tempCar.setAvailability(carDTO.getAvailability());
+                 tempCar.setLocation(carDTO.getLocation());
+                 tempCar.setPhotoUrl(carDTO.getPhotoUrl());
+                 tempCar.setEngineType(carDTO.getEngineType());
+                 tempCar.setNumberOfSeats(carDTO.getNumberOfSeats());
+                 tempCar.setWeight(carDTO.getWeight());
+                 tempCar.setEngineVolume(carDTO.getEngineVolume());
+                 tempCar.setMaxSpeed(carDTO.getMaxSpeed());
+                 tempCar.setGearboxType(carDTO.getGearboxType());
+                 tempCar.setDescribe(carDTO.getDescribe());
+                 tempCar.setHorsep(carDTO.getHorsep());
+                 tempCar.setPricePerHour(carDTO.getPricePerHour());
 
-            System.out.println("The car has been successfully received!");
+                 carRepository.save(tempCar);
 
-        }
+                 System.out.println("The car has been successfully received!");
 
-        catch (Exception e){
-            System.out.println("Error data in object" + e.getMessage());
-        }
+             } catch (Exception e) {
+                 System.out.println("Error data in object" + e.getMessage());
+             }
 
+         }
+
+         else{
+             System.out.println("The car already exists!");
+         }
     }
 
     @KafkaListener(topics = "Users", groupId = "CarsharingU", containerFactory = "userKafkaListnerContainerFactory")
@@ -79,6 +91,7 @@ public class ReservationService {
 
 
         System.out.println(received);
+
 
         try {
 
@@ -94,7 +107,7 @@ public class ReservationService {
             tempUser.setDriverLicense(received.getDriverLicense());
             tempUser.setImguser(received.getImguser());
 
-            receivedKafkaUsers.put(received.getId(),tempUser);
+            userRepository.save(tempUser);
 
 
             System.out.println("The user has been successfully received!");
@@ -111,10 +124,11 @@ public class ReservationService {
         Reservation reservation = new Reservation();
         reservation.setId(shortReservationInfoDTO.getId());
 
+        int UserId = shortReservationInfoDTO.getUser_id();
+        reservation.setUser(userRepository.findById(UserId));
 
-        reservation.setUser(receivedKafkaUsers.get(shortReservationInfoDTO.getUser_id()));
-
-        reservation.setCar(receivedKafkaCars.get(shortReservationInfoDTO.getCar_id()));
+        int CarId = shortReservationInfoDTO.getCar_id();
+        reservation.setCar(carRepository.findById(CarId));
 
         reservation.setStartTime(shortReservationInfoDTO.getStartTime());
         reservation.setEndTime(shortReservationInfoDTO.getEndTime());
