@@ -2,15 +2,10 @@ spring:
   application:
     name: Carservice
   datasource:
-    url: jdbc:postgresql://${POSTGRES_HOST}:${POSTGRES_PORT}/${POSTGRES_DB}
-    username: ${POSTGRES_USERNAME}
-    password: ${POSTGRES_PASSWORD}
+    url: jdbc:postgresql://localhost:5432/Cars
+    username: postgres
+    password: 1111
     driver-class-name: org.postgresql.Driver
-
-#  jpa:
-#    properties:
-#      hibernate:
-#        default_schema: public
 
   flyway:
     repair-on-migrate: true
@@ -19,8 +14,6 @@ spring:
     locations: classpath:db/migration
     schemas: public
     default-schema: public
-#    create-schemas: true
-#    table: flyway_car_history
 
   jpa:
     show-sql: true
@@ -29,22 +22,12 @@ spring:
         dialect: org.hibernate.dialect.PostgreSQLDialect
 
   kafka:
-    bootstrap-servers: kafka:9092
+    bootstrap-servers: localhost:9092
 
-#  flyway:
-#    enabled: true
-#    locations: classpath:db/migration
-#    schemas: public
-#    default-schema: public
+server:
+  port: 8081
 
-#server:
-#  port: ${SERVER_PORT}
-
-##jwt:
-##  secret: ${JWT_SECRET}
-
-
-#Версия с БД на компьютере
+# засунули в контейнер
 # |
 # v
 
@@ -52,13 +35,25 @@ spring:
 #  application:
 #    name: Carservice
 #  datasource:
-#    url: jdbc:postgresql://localhost:5432/Carsharing
-#    username: postgres
-#    password: 1111
+#    url: jdbc:postgresql://${POSTGRES_HOST}:${POSTGRES_PORT}/${POSTGRES_DB}
+#    username: ${POSTGRES_USERNAME}
+#    password: ${POSTGRES_PASSWORD}
 #    driver-class-name: org.postgresql.Driver
 #
-#server:
-#  port: 8081
+#
+#  flyway:
+#    repair-on-migrate: true
+#    validate-on-migrate: false
+#    enabled: true
+#    locations: classpath:db/migration
+#    schemas: public
+#    default-schema: public
+#
+#  jpa:
+#    show-sql: true
+#    properties:
+#      hibernate:
+#        dialect: org.hibernate.dialect.PostgreSQLDialect
 #
 #  kafka:
-#    bootstrap-servers: localhost:9092
+#    bootstrap-servers: kafka:9092

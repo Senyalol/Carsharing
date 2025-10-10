@@ -8,7 +8,6 @@ import dto.ShortCarInfoDTO;
 import jakarta.transaction.Transactional;
 import lombok.Data;
 import org.springframework.beans.factory.annotation.Autowired;
-//import org.springframework.kafka.annotation.KafkaListener;
 import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.stereotype.Service;
 
@@ -16,7 +15,6 @@ import java.util.List;
 
 @Data
 @Service
-@Transactional
 @JsonSerialize
 public class CarService {
 
@@ -34,6 +32,7 @@ public class CarService {
 
 
 //    @KafkaListener(topics = "C")
+    @Transactional
     public void SendKafkaCar(int certainCarId) {
 
         try{
@@ -91,6 +90,7 @@ public class CarService {
     }
 
     //Метод для создания авто
+    @Transactional
     public Car CreateCar(ShortCarInfoDTO shortCarInfoDTO) {
         Car car = new Car();
         carRepository.save(carMapping.toCar(shortCarInfoDTO));
@@ -98,11 +98,13 @@ public class CarService {
     }
 
     //Метод для удаления авто по его id
+    @Transactional
     public void DeleteById(int id) {
         carRepository.deleteById(id);
     }
 
     //Метод для изменения параметров авто
+    @Transactional
     public Car ChangeCar(int id, ShortCarInfoDTO shortCarInfoDTO) {
         Car CarToUpdate = carRepository.findById(id);
 

@@ -1,10 +1,10 @@
 package com.Reservations.ReservationsService.Controller;
 
 import com.Reservations.ReservationsService.DTO.ShortReservationInfoDTO;
-import com.Reservations.ReservationsService.Entity.Reservation;
 import com.Reservations.ReservationsService.Service.ReservationService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+import com.Reservations.ReservationsService.Entity.Reservation;
 //import org.springframework.security.access.prepost.PreAuthorize;
 
 import java.util.List;
@@ -27,6 +27,7 @@ public class ReservationController {
     public List<ShortReservationInfoDTO> getAllBookings(){
         return reservationService.getAllReservations();
     }
+
 
     //Показать запись по его id
     @GetMapping("/findId/{id}")

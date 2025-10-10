@@ -1,5 +1,6 @@
 CREATE TABLE cars (
-                      car_id SERIAL PRIMARY KEY,
+                      kafka_id SERIAL PRIMARY KEY,
+                      car_id INT UNIQUE NOT NULL,
                       make VARCHAR(50) NOT NULL,
                       model VARCHAR(100) NOT NULL,
                       year INT,

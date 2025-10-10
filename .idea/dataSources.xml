@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="DataSourceManagerImpl" format="xml" multifile-model="true">
-    <data-source source="LOCAL" name="userDB@localhost" uuid="674417e1-8e26-4a66-872f-6b0186ea0dac">
+    <data-source source="LOCAL" name="Cars@localhost" uuid="b5cd49f2-99a4-404f-b54c-e7527b73f96a">
       <driver-ref>postgresql</driver-ref>
       <synchronize>true</synchronize>
       <jdbc-driver>org.postgresql.Driver</jdbc-driver>
-      <jdbc-url>jdbc:postgresql://localhost:5431/userDB</jdbc-url>
+      <jdbc-url>jdbc:postgresql://localhost:5432/Cars</jdbc-url>
       <jdbc-additional-properties>
         <property name="com.intellij.clouds.kubernetes.db.host.port" />
         <property name="com.intellij.clouds.kubernetes.db.enabled" value="false" />
@@ -13,11 +13,11 @@
       </jdbc-additional-properties>
       <working-dir>$ProjectFileDir$</working-dir>
     </data-source>
-    <data-source source="LOCAL" name="carsDB@localhost" uuid="0402ccea-3c14-4ea2-a31c-d2163d459d44">
+    <data-source source="LOCAL" name="Auth@localhost" uuid="41dbd0a6-2443-4e1f-9706-080e33b0ae85">
       <driver-ref>postgresql</driver-ref>
       <synchronize>true</synchronize>
       <jdbc-driver>org.postgresql.Driver</jdbc-driver>
-      <jdbc-url>jdbc:postgresql://localhost:5430/carsDB</jdbc-url>
+      <jdbc-url>jdbc:postgresql://localhost:5432/Auth</jdbc-url>
       <jdbc-additional-properties>
         <property name="com.intellij.clouds.kubernetes.db.host.port" />
         <property name="com.intellij.clouds.kubernetes.db.enabled" value="false" />
@@ -25,11 +25,11 @@
       </jdbc-additional-properties>
       <working-dir>$ProjectFileDir$</working-dir>
     </data-source>
-    <data-source source="LOCAL" name="reservationsDB@localhost" uuid="f04ee1d5-f9f4-42bb-8355-e65dd7ddb7e3">
+    <data-source source="LOCAL" name="Reservations@localhost" uuid="1460a052-4994-43c5-9149-1289c7bb43fe">
       <driver-ref>postgresql</driver-ref>
       <synchronize>true</synchronize>
       <jdbc-driver>org.postgresql.Driver</jdbc-driver>
-      <jdbc-url>jdbc:postgresql://localhost:5433/reservationsDB</jdbc-url>
+      <jdbc-url>jdbc:postgresql://localhost:5432/Reservations</jdbc-url>
       <jdbc-additional-properties>
         <property name="com.intellij.clouds.kubernetes.db.host.port" />
         <property name="com.intellij.clouds.kubernetes.db.enabled" value="false" />

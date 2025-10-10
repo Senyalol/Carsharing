@@ -1,45 +1,45 @@
 services:
-  postgres-auth:
-    image: postgres:latest
-    container_name: dbUsers
-    environment:
-      POSTGRES_USER: postgres
-      POSTGRES_PASSWORD: 1111
-      POSTGRES_DB: userDB
-    ports:
-      - "5431:5432"
-    volumes:
-      - postgres_users:/var/lib/postgresql/data
-    networks:
-      - app-network
+#  postgres-auth:
+#    image: postgres:latest
+#    container_name: dbUsers
+#    environment:
+#      POSTGRES_USER: postgres
+#      POSTGRES_PASSWORD: 1111
+#      POSTGRES_DB: userDB
+#    ports:
+#      - "5431:5432"
+#    volumes:
+#      - postgres_users:/var/lib/postgresql/data
+#    networks:
+#      - app-network
 
-  postgres-cars:
-    image: postgres:latest
-    container_name: dbCars
-    environment:
-      POSTGRES_USER: postgres
-      POSTGRES_PASSWORD: 1111
-      POSTGRES_DB: carsDB
-    ports:
-      - "5430:5432"
-    volumes:
-      - postgres_cars:/var/lib/postgresql/data
-    networks:
-      - app-network
+#  postgres-cars:
+#    image: postgres:latest
+#    container_name: dbCars
+#    environment:
+#      POSTGRES_USER: postgres
+#      POSTGRES_PASSWORD: 1111
+#      POSTGRES_DB: carsDB
+#    ports:
+#      - "5430:5432"
+#    volumes:
+#      - postgres_cars:/var/lib/postgresql/data
+#    networks:
+#      - app-network
 
-  postgres-reservations:
-    image: postgres:latest
-    container_name: dbReservations
-    environment:
-      POSTGRES_USER: postgres
-      POSTGRES_PASSWORD: 1111
-      POSTGRES_DB: reservationsDB
-    ports:
-      - "5433:5432"
-    volumes:
-      - postgres_reservations:/var/lib/postgresql/data
-    networks:
-      - app-network
+#  postgres-reservations:
+#    image: postgres:latest
+#    container_name: dbReservations
+#    environment:
+#      POSTGRES_USER: postgres
+#      POSTGRES_PASSWORD: 1111
+#      POSTGRES_DB: reservationsDB
+#    ports:
+#      - "5433:5432"
+#    volumes:
+#      - postgres_reservations:/var/lib/postgresql/data
+#    networks:
+#      - app-network
 
   kafka:
     image: apache/kafka:latest
@@ -48,7 +48,7 @@ services:
       KAFKA_NODE_ID: 1
       KAFKA_PROCESS_ROLES: broker,controller
       KAFKA_LISTENERS: PLAINTEXT://0.0.0.0:9092,CONTROLLER://0.0.0.0:9093
-      KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://kafka:9092
+      KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://localhost:9092
       KAFKA_CONTROLLER_LISTENER_NAMES: CONTROLLER
       KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: CONTROLLER:PLAINTEXT,PLAINTEXT:PLAINTEXT
       KAFKA_CONTROLLER_QUORUM_VOTERS: 1@kafka:9093
@@ -76,76 +76,74 @@ services:
     networks:
       - app-network
 
-  auth:
-    build:
-      context: .
-      dockerfile: DockerfileUser
-    ports:
-      - "8080:8080"
-    environment:
-      POSTGRES_USERNAME: postgres
-      POSTGRES_PASSWORD: 1111
-      POSTGRES_DB: userDB
-      POSTGRES_HOST: postgres-auth
-      POSTGRES_PORT: 5432
-      JWT_SECRET: c506558b364ad0dc9d45508b0e172ac5fa1d262e3d18363768c9222da1b925b42929864c6e663dec416db3c1e136f7c325f4adb51280e9ba6b71b0cd80104dd03153d43f86c47e4921d889755f7694158dc1c4825ff8324e35dbb1dccec7ad544ddf60057a1c92ae710d7277daab3a6adce875cdf0940710d105f0f7857dc78f50ff34783f780dd486b546dba9c77f4af25ea962d073167933e933028b97657953fe720ab501a649a2ebe6f3c2dc22f52ebfd1e3ae8d66c15394aabbd9a9fde77350b4ebce6c7c74d76a8aecc9aa0d32d2e1491a492b2e33d53a161677cc755556689bcaa5c43abd363eeebdaaba134d4f10b574c430e2533680549f746a5118
-
-    depends_on:
-      - postgres-auth
-      - kafka
-    networks:
-      - app-network
-
-  car:
-    build:
-      context: .
-      dockerfile: DockerfileCar
-    ports:
-      - "8081:8081"
-    environment:
-      POSTGRES_USERNAME: postgres
-      POSTGRES_PASSWORD: 1111
-      POSTGRES_DB: carsDB
-      POSTGRES_HOST: postgres-cars
-      POSTGRES_PORT: 5432
-      #JWT_SECRET: c506558b364ad0dc9d45508b0e172ac5fa1d262e3d18363768c9222da1b925b42929864c6e663dec416db3c1e136f7c325f4adb51280e9ba6b71b0cd80104dd03153d43f86c47e4921d889755f7694158dc1c4825ff8324e35dbb1dccec7ad544ddf60057a1c92ae710d7277daab3a6adce875cdf0940710d105f0f7857dc78f50ff34783f780dd486b546dba9c77f4af25ea962d073167933e933028b97657953fe720ab501a649a2ebe6f3c2dc22f52ebfd1e3ae8d66c15394aabbd9a9fde77350b4ebce6c7c74d76a8aecc9aa0d32d2e1491a492b2e33d53a161677cc755556689bcaa5c43abd363eeebdaaba134d4f10b574c430e2533680549f746a5118
-      SERVER_PORT: 8081
-
-    depends_on:
-      - postgres-cars
-      - kafka
-    networks:
-      - app-network
-
-  reservations:
-    build:
-      context: .
-      dockerfile: DockerfileReservation
-    ports:
-      - "8082:8082"
-    environment:
-      POSTGRES_USERNAME: postgres
-      POSTGRES_PASSWORD: 1111
-      POSTGRES_DB: reservationsDB
-      POSTGRES_HOST: postgres-reservations
-      POSTGRES_PORT: 5432
-      SERVER_PORT: 8082
-
-    depends_on:
-      - postgres-reservations
-      - car
-      - auth
-      - kafka
-    networks:
-      - app-network
-
+#  auth:
+#    build:
+#      context: .
+#      dockerfile: DockerfileUser
+#    ports:
+#      - "8080:8080"
+#    environment:
+#      POSTGRES_USERNAME: postgres
+#      POSTGRES_PASSWORD: 1111
+#      POSTGRES_DB: userDB
+#      POSTGRES_HOST: postgres-auth
+#      POSTGRES_PORT: 5432
+#      JWT_SECRET: c506558b364ad0dc9d45508b0e172ac5fa1d262e3d18363768c9222da1b925b42929864c6e663dec416db3c1e136f7c325f4adb51280e9ba6b71b0cd80104dd03153d43f86c47e4921d889755f7694158dc1c4825ff8324e35dbb1dccec7ad544ddf60057a1c92ae710d7277daab3a6adce875cdf0940710d105f0f7857dc78f50ff34783f780dd486b546dba9c77f4af25ea962d073167933e933028b97657953fe720ab501a649a2ebe6f3c2dc22f52ebfd1e3ae8d66c15394aabbd9a9fde77350b4ebce6c7c74d76a8aecc9aa0d32d2e1491a492b2e33d53a161677cc755556689bcaa5c43abd363eeebdaaba134d4f10b574c430e2533680549f746a5118
+#
+#    depends_on:
+#      - postgres-auth
+#      - kafka
 #    networks:
-#      - app
+#      - app-network
+
+#  car:
+#    build:
+#      context: .
+#      dockerfile: DockerfileCar
+#    ports:
+#      - "8081:8081"
+#    environment:
+#      POSTGRES_USERNAME: postgres
+#      POSTGRES_PASSWORD: 1111
+#      POSTGRES_DB: carsDB
+#      POSTGRES_HOST: postgres-cars
+#      POSTGRES_PORT: 5432
+#      #JWT_SECRET: c506558b364ad0dc9d45508b0e172ac5fa1d262e3d18363768c9222da1b925b42929864c6e663dec416db3c1e136f7c325f4adb51280e9ba6b71b0cd80104dd03153d43f86c47e4921d889755f7694158dc1c4825ff8324e35dbb1dccec7ad544ddf60057a1c92ae710d7277daab3a6adce875cdf0940710d105f0f7857dc78f50ff34783f780dd486b546dba9c77f4af25ea962d073167933e933028b97657953fe720ab501a649a2ebe6f3c2dc22f52ebfd1e3ae8d66c15394aabbd9a9fde77350b4ebce6c7c74d76a8aecc9aa0d32d2e1491a492b2e33d53a161677cc755556689bcaa5c43abd363eeebdaaba134d4f10b574c430e2533680549f746a5118
+#      SERVER_PORT: 8081
+#
+#    depends_on:
+#      - postgres-cars
+#      - kafka
+#    networks:
+#      - app-network
+
+#  reservations:
+#    build:
+#      context: .
+#      dockerfile: DockerfileReservation
+#    ports:
+#      - "8082:8082"
+#    environment:
+#      POSTGRES_USERNAME: postgres
+#      POSTGRES_PASSWORD: 1111
+#      POSTGRES_DB: reservationsDB
+#      POSTGRES_HOST: postgres-reservations
+#      POSTGRES_PORT: 5432
+#      SERVER_PORT: 8082
+#
+#    depends_on:
+#      - postgres-reservations
+#      - car
+#      - auth
+#      - kafka
+#    networks:
+#      - app-network
+
 
 volumes:
-  postgres_users:
-  postgres_cars:
-  postgres_reservations:
+#  postgres_users:
+#  postgres_cars:
+#  postgres_reservations:
   kafka_data:
 
 networks:
