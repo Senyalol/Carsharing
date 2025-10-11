@@ -9,6 +9,7 @@ import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import dto.ShortUserInfoDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Isolation;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 import com.Reservations.ReservationsService.Entity.Car;
@@ -75,9 +76,9 @@ public class ReservationService {
         return dto;
     }
 
-    @Transactional(propagation = Propagation.REQUIRES_NEW)
+    @Transactional(propagation = Propagation.REQUIRES_NEW, isolation = Isolation.REPEATABLE_READ)
     public void saveReceivedUserKafka(User user) {
-        userRepository.save(user);
+        userRepository.saveAndFlush(user);
     }
 
     @Transactional(propagation = Propagation.REQUIRES_NEW)
@@ -144,7 +145,7 @@ public class ReservationService {
 //        }
 
         int UserId = shortReservationInfoDTO.getUser_id();
-        reservation.setUser(userRepository.findById(UserId));
+        reservation.setUser(userRepository.findById(UserId).get());
 
         int CarId = shortReservationInfoDTO.getCar_id();
         reservation.setCar(carRepository.findById(CarId));

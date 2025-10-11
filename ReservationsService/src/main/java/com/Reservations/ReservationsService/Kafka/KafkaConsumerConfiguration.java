@@ -65,6 +65,7 @@ public class KafkaConsumerConfiguration {
     public ConcurrentKafkaListenerContainerFactory<String, ShortCarInfoDTO> carKafkaListnerContainerFactory(){
         ConcurrentKafkaListenerContainerFactory<String,ShortCarInfoDTO> factory = new ConcurrentKafkaListenerContainerFactory<>();
         factory.setConsumerFactory(carInfoConsumerFactory());
+        factory.setConcurrency(1); //New
         return factory;
     }
 
@@ -83,6 +84,7 @@ public class KafkaConsumerConfiguration {
     public ConcurrentKafkaListenerContainerFactory<String, ShortUserInfoDTO> userKafkaListnerContainerFactory(){
         ConcurrentKafkaListenerContainerFactory<String, ShortUserInfoDTO> factory = new ConcurrentKafkaListenerContainerFactory<>();
         factory.setConsumerFactory(userInfoConsumerFactory());
+        factory.setConcurrency(1); // New
         return factory;
     }
 

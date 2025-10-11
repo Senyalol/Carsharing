@@ -12,17 +12,21 @@ import org.springframework.kafka.annotation.KafkaListener;
 import org.springframework.stereotype.Service;
 import com.Reservations.ReservationsService.Entity.Car;
 
+import java.util.Optional;
+
 @Service
 @JsonSerialize
 public class KafkaConsumerService {
 
     private final ReservationService reservationService;
+    private final UserRepository userRepository;
     private final CarRepository carRepository;
 
     @Autowired
-    public KafkaConsumerService(ReservationService reservationService, CarRepository carRepository) {
+    public KafkaConsumerService(ReservationService reservationService, CarRepository carRepository, UserRepository userRepository) {
         this.reservationService = reservationService;
         this.carRepository = carRepository;
+        this.userRepository = userRepository;
     }
 
     @KafkaListener(topics = "Users", groupId = "CarsharingU", containerFactory = "userKafkaListnerContainerFactory")
@@ -32,19 +36,40 @@ public class KafkaConsumerService {
 
         try {
 
-            User tempUser = new User();
+//            User tempUser = new User();
+//
+//            tempUser.setId(received.getId());
+//            tempUser.setUsername(received.getUsername());
+//            tempUser.setFirstname(received.getFirstname());
+//            tempUser.setLastname(received.getLastname());
+//            tempUser.setPassportCode(received.getPassportCode());
+//            tempUser.setPhoneNumber(received.getPhoneNumber());
+//            tempUser.setPassword(received.getPassword());
+//            tempUser.setDriverLicense(received.getDriverLicense());
+//            tempUser.setImguser(received.getImguser());
 
-            tempUser.setId(received.getId());
-            tempUser.setUsername(received.getUsername());
-            tempUser.setFirstname(received.getFirstname());
-            tempUser.setLastname(received.getLastname());
-            tempUser.setPassportCode(received.getPassportCode());
-            tempUser.setPhoneNumber(received.getPhoneNumber());
-            tempUser.setPassword(received.getPassword());
-            tempUser.setDriverLicense(received.getDriverLicense());
-            tempUser.setImguser(received.getImguser());
+            int id = received.getId();
+            Optional<User> tempUser = userRepository.findById(id);
 
-            reservationService.saveReceivedUserKafka(tempUser);
+            if(tempUser.isPresent()) {
+
+                User userToUpdate = tempUser.get();
+                updateUser(received, userToUpdate);
+                reservationService.saveReceivedUserKafka(userToUpdate);
+                System.out.println("User updated successfully!");
+
+            }
+
+            else{
+
+                User newUser = new User();
+                updateUser(received, newUser);
+                reservationService.saveReceivedUserKafka(newUser);
+                System.out.println("New user created successfully!");
+
+            }
+
+//            reservationService.saveReceivedUserKafka(tempUser);
 
             System.out.println("The user has been successfully received!");
 
@@ -100,6 +125,21 @@ public class KafkaConsumerService {
          else{
              System.out.println("The car already exists!");
          }
+    }
+
+
+    private void updateUser(ShortUserInfoDTO dto, User user) {
+
+        //user.setId(dto.getId());
+        user.setUsername(dto.getUsername());
+        user.setFirstname(dto.getFirstname());
+        user.setLastname(dto.getLastname());
+        user.setPassportCode(dto.getPassportCode());
+        user.setPhoneNumber(dto.getPhoneNumber());
+        user.setPassword(dto.getPassword());
+        user.setDriverLicense(dto.getDriverLicense());
+        user.setImguser(dto.getImguser());
+
     }
 
 }
