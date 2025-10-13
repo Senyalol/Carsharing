@@ -4,6 +4,7 @@ import com.Reservations.ReservationsService.DTO.ShortReservationInfoDTO;
 import com.Reservations.ReservationsService.Entity.Reservation;
 import com.Reservations.ReservationsService.Service.ReservationService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 //import org.springframework.security.access.prepost.PreAuthorize;
 
@@ -23,7 +24,7 @@ public class ReservationController {
 
     //Показать все записи
     @GetMapping
-    //@PreAuthorize("hasAuthority('ROLE_USER') || hasAuthority('ROLE_ADMIN')")
+    @PreAuthorize("hasAuthority('ROLE_USER') || hasAuthority('ROLE_ADMIN')")
     public List<ShortReservationInfoDTO> getAllBookings(){
         return reservationService.getAllReservations();
     }
@@ -31,21 +32,21 @@ public class ReservationController {
 
     //Показать запись по его id
     @GetMapping("/findId/{id}")
-    //@PreAuthorize("hasAuthority('ROLE_ADMIN')")
+    @PreAuthorize("hasAuthority('ROLE_ADMIN')")
     public ShortReservationInfoDTO findById(@PathVariable int id){
         return reservationService.findReservationById(id);
     }
 
     //Показати все записи пользователя
     @GetMapping("/findByUser/{id}")
-    //@PreAuthorize("hasAuthority('ROLE_USER') || hasAuthority('ROLE_ADMIN')")
+    @PreAuthorize("hasAuthority('ROLE_USER') || hasAuthority('ROLE_ADMIN')")
     public List<ShortReservationInfoDTO> findByUser(@PathVariable int id){
         return reservationService.findReservationByUserId(id);
     }
 
     //Показать все записи где указан конкретный автомобиль
     @GetMapping("/findByCar/{id}")
-    //@PreAuthorize("hasAuthority('ROLE_ADMIN')")
+    @PreAuthorize("hasAuthority('ROLE_ADMIN')")
     public List<ShortReservationInfoDTO> findByCar(@PathVariable int id){
         return reservationService.findReservationByCarId(id);
     }
