@@ -53,28 +53,28 @@ public class ReservationController {
 
     //Показать все записи в соответствии со статусом
     @GetMapping("/findByStatus/{status}")
-    //@PreAuthorize("hasAuthority('ROLE_ADMIN')")
+    @PreAuthorize("hasAuthority('ROLE_ADMIN')")
     public List<ShortReservationInfoDTO> findByStatus(@PathVariable String status){
         return reservationService.findReservationByStatus(status);
     }
 
     //Сделать запись
     @PostMapping("/reservation")
-    //@PreAuthorize("hasAuthority('ROLE_USER') || hasAuthority('ROLE_ADMIN')")
+    @PreAuthorize("hasAuthority('ROLE_USER') || hasAuthority('ROLE_ADMIN')")
     public Reservation bookingCar(@RequestBody ShortReservationInfoDTO reservationDTO){
         return reservationService.addReservation(reservationDTO);
     }
 
     //Редактировать запись
     @PatchMapping("/change/{id}")
-    //@PreAuthorize("hasAuthority('ROLE_ADMIN')")
+    @PreAuthorize("hasAuthority('ROLE_ADMIN')")
     public Reservation changeReservation(@PathVariable int id, @RequestBody ShortReservationInfoDTO reservationDTO){
         return reservationService.changeReservationStatus(id, reservationDTO);
     }
 
     //Удалить запись
     @DeleteMapping("/remove/{id}")
-    //@PreAuthorize("hasAuthority('ROLE_USER') || hasAuthority('ROLE_ADMIN')")
+    @PreAuthorize("hasAuthority('ROLE_USER') || hasAuthority('ROLE_ADMIN')")
     public void removeReservation(@PathVariable int id){
         reservationService.deleteReservationById(id);
     }
