@@ -1,5 +1,6 @@
 package com.Reservations.ReservationsService.Service;
 
+import com.Reservations.ReservationsService.Entity.Car;
 import com.Reservations.ReservationsService.Entity.User;
 import com.Reservations.ReservationsService.Repository.CarRepository;
 import com.Reservations.ReservationsService.Repository.UserRepository;
@@ -10,7 +11,6 @@ import dto.ShortUserInfoDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.kafka.annotation.KafkaListener;
 import org.springframework.stereotype.Service;
-import com.Reservations.ReservationsService.Entity.Car;
 
 import java.util.Optional;
 
@@ -88,43 +88,30 @@ public class KafkaConsumerService {
         System.out.println(carDTO);
         int CarId = carDTO.getId();
 
-         if(!carRepository.existsById(CarId)) {
+            try {
 
-             try {
+                 if(carRepository.findById(CarId).isPresent()) {
 
-                 Car tempCar = new Car();
+                    Car updatebleCar = carRepository.findById(CarId).get();
+                    updateCar(carDTO,updatebleCar);
+                    reservationService.saveRecievedCarKafka(updatebleCar);
+                    System.out.println("The car has been successfully saved!");
+                 }
 
-                 tempCar.setId(carDTO.getId());
-                 tempCar.setMake(carDTO.getMake());
-                 tempCar.setModel(carDTO.getModel());
-                 tempCar.setYear(carDTO.getYear());
-                 tempCar.setLicensePlate(carDTO.getLicensePlate());
-                 tempCar.setAvailability(carDTO.getAvailability());
-                 tempCar.setLocation(carDTO.getLocation());
-                 tempCar.setPhotoUrl(carDTO.getPhotoUrl());
-                 tempCar.setEngineType(carDTO.getEngineType());
-                 tempCar.setNumberOfSeats(carDTO.getNumberOfSeats());
-                 tempCar.setWeight(carDTO.getWeight());
-                 tempCar.setEngineVolume(carDTO.getEngineVolume());
-                 tempCar.setMaxSpeed(carDTO.getMaxSpeed());
-                 tempCar.setGearboxType(carDTO.getGearboxType());
-                 tempCar.setDescribe(carDTO.getDescribe());
-                 tempCar.setHorsep(carDTO.getHorsep());
-                 tempCar.setPricePerHour(carDTO.getPricePerHour());
+                 else{
 
-                 carRepository.save(tempCar);
 
-                 System.out.println("The car has been successfully received!");
+                     Car newCar = new Car();
+                     updateCar(carDTO, newCar);
+                     reservationService.saveRecievedCarKafka(newCar);
+                     System.out.println("New Car created successfully!");
+                 }
 
              } catch (Exception e) {
                  System.out.println("Error data in object" + e.getMessage());
              }
 
-         }
 
-         else{
-             System.out.println("The car already exists!");
-         }
     }
 
 
@@ -139,6 +126,27 @@ public class KafkaConsumerService {
         user.setPassword(dto.getPassword());
         user.setDriverLicense(dto.getDriverLicense());
         user.setImguser(dto.getImguser());
+
+    }
+
+    private void updateCar(ShortCarInfoDTO dto,  Car car){
+
+        car.setMake(dto.getMake());
+        car.setModel(dto.getModel());
+        car.setYear(dto.getYear());
+        car.setLicensePlate(dto.getLicensePlate());
+        car.setAvailability(dto.getAvailability());
+        car.setLocation(dto.getLocation());
+        car.setPhotoUrl(dto.getPhotoUrl());
+        car.setEngineType(dto.getEngineType());
+        car.setNumberOfSeats(dto.getNumberOfSeats());
+        car.setWeight(dto.getWeight());
+        car.setEngineVolume(dto.getEngineVolume());
+        car.setMaxSpeed(dto.getMaxSpeed());
+        car.setGearboxType(dto.getGearboxType());
+        car.setDescribe(dto.getDescribe());
+        car.setHorsep(dto.getHorsep());
+        car.setPricePerHour(dto.getPricePerHour());
 
     }
 

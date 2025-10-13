@@ -14,6 +14,10 @@ import lombok.Setter;
 @Entity
 @Table(name = "cars")
 public class Car {
+
+    @Version
+    private Long version;
+
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "cars_id_gen")
     @SequenceGenerator(name = "cars_id_gen", sequenceName = "cars_car_id_seq", allocationSize = 1)

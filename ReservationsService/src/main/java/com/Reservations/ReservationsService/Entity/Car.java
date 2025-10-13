@@ -5,6 +5,7 @@ import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 import lombok.Getter;
 import lombok.Setter;
+import org.hibernate.annotations.ColumnDefault;
 
 import java.util.LinkedHashSet;
 import java.util.Set;
@@ -16,13 +17,9 @@ import java.util.Set;
 public class Car {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "cars_id_gen")
-    @SequenceGenerator(name = "cars_id_gen", sequenceName = "cars_kafka_id_seq", allocationSize = 1)
-    @Column(name = "kafka_id", nullable = false)
-    private Integer id;
-
-    @NotNull
+    @SequenceGenerator(name = "cars_id_gen", sequenceName = "cars_car_id_seq", allocationSize = 1)
     @Column(name = "car_id", nullable = false)
-    private Integer carId;
+    private Integer id;
 
     @Size(max = 50)
     @NotNull
@@ -83,6 +80,10 @@ public class Car {
 
     @Column(name = "price_per_hour")
     private Double pricePerHour;
+
+    @ColumnDefault("0")
+    @Column(name = "version")
+    private Long version;
 
     @OneToMany(mappedBy = "car")
     private Set<com.Reservations.ReservationsService.Entity.Reservation> reservations = new LinkedHashSet<>();

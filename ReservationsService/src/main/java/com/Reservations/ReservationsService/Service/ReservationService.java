@@ -1,5 +1,8 @@
 package com.Reservations.ReservationsService.Service;
 
+import com.Reservations.ReservationsService.Entity.Car;
+import com.Reservations.ReservationsService.Entity.Reservation;
+import com.Reservations.ReservationsService.Entity.User;
 import com.Reservations.ReservationsService.Repository.CarRepository;
 import com.Reservations.ReservationsService.Repository.UserRepository;
 import dto.ShortCarInfoDTO;
@@ -12,9 +15,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Isolation;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
-import com.Reservations.ReservationsService.Entity.Car;
-import com.Reservations.ReservationsService.Entity.User;
-import com.Reservations.ReservationsService.Entity.Reservation;
 
 import java.util.*;
 
@@ -81,48 +81,49 @@ public class ReservationService {
         userRepository.saveAndFlush(user);
     }
 
-    @Transactional(propagation = Propagation.REQUIRES_NEW)
-    public void saveRecievedCarKafka(ShortCarInfoDTO carDTO){
-        System.out.println(carDTO);
-        int CarId = carDTO.getId();
+    @Transactional(propagation = Propagation.REQUIRES_NEW, isolation = Isolation.REPEATABLE_READ)
+    public void saveRecievedCarKafka(Car car){
+        carRepository.saveAndFlush(car);
+//        System.out.println(carDTO);
+//        int CarId = carDTO.getId();
+//
+//        if(!carRepository.existsById(CarId)) {
+//
+//            try {
 
-        if(!carRepository.existsById(CarId)) {
+//                Car tempCar = new Car();
+//
+//                tempCar.setId(carDTO.getId());
+//                tempCar.setMake(carDTO.getMake());
+//                tempCar.setModel(carDTO.getModel());
+//                tempCar.setYear(carDTO.getYear());
+//                tempCar.setLicensePlate(carDTO.getLicensePlate());
+//                tempCar.setAvailability(carDTO.getAvailability());
+//                tempCar.setLocation(carDTO.getLocation());
+//                tempCar.setPhotoUrl(carDTO.getPhotoUrl());
+//                tempCar.setEngineType(carDTO.getEngineType());
+//                tempCar.setNumberOfSeats(carDTO.getNumberOfSeats());
+//                tempCar.setWeight(carDTO.getWeight());
+//                tempCar.setEngineVolume(carDTO.getEngineVolume());
+//                tempCar.setMaxSpeed(carDTO.getMaxSpeed());
+//                tempCar.setGearboxType(carDTO.getGearboxType());
+//                tempCar.setDescribe(carDTO.getDescribe());
+//                tempCar.setHorsep(carDTO.getHorsep());
+//                tempCar.setPricePerHour(carDTO.getPricePerHour());
 
-            try {
-
-                Car tempCar = new Car();
-
-                tempCar.setId(carDTO.getId());
-                tempCar.setMake(carDTO.getMake());
-                tempCar.setModel(carDTO.getModel());
-                tempCar.setYear(carDTO.getYear());
-                tempCar.setLicensePlate(carDTO.getLicensePlate());
-                tempCar.setAvailability(carDTO.getAvailability());
-                tempCar.setLocation(carDTO.getLocation());
-                tempCar.setPhotoUrl(carDTO.getPhotoUrl());
-                tempCar.setEngineType(carDTO.getEngineType());
-                tempCar.setNumberOfSeats(carDTO.getNumberOfSeats());
-                tempCar.setWeight(carDTO.getWeight());
-                tempCar.setEngineVolume(carDTO.getEngineVolume());
-                tempCar.setMaxSpeed(carDTO.getMaxSpeed());
-                tempCar.setGearboxType(carDTO.getGearboxType());
-                tempCar.setDescribe(carDTO.getDescribe());
-                tempCar.setHorsep(carDTO.getHorsep());
-                tempCar.setPricePerHour(carDTO.getPricePerHour());
-
-                carRepository.save(tempCar);
-
-                System.out.println("The car has been successfully received!");
-
-            } catch (Exception e) {
-                System.out.println("Error data in object" + e.getMessage());
-            }
-
-        }
-
-        else{
-            System.out.println("The car already exists!");
-        }
+//                carRepository.save(tempCar);
+//
+//                System.out.println("The car has been successfully received!");
+//
+//            } catch (Exception e) {
+//                System.out.println("Error data in object" + e.getMessage());
+//            }
+//
+//        }
+//
+//        else{
+//            System.out.println("The car already exists!");
+//        }
     }
 
     //Сделать бронь
@@ -148,7 +149,7 @@ public class ReservationService {
         reservation.setUser(userRepository.findById(UserId).get());
 
         int CarId = shortReservationInfoDTO.getCar_id();
-        reservation.setCar(carRepository.findById(CarId));
+        reservation.setCar(carRepository.findById(CarId).get());
 
         reservation.setStartTime(shortReservationInfoDTO.getStartTime());
         reservation.setEndTime(shortReservationInfoDTO.getEndTime());

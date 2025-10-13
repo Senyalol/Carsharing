@@ -5,6 +5,7 @@ import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 import lombok.Getter;
 import lombok.Setter;
+import org.hibernate.annotations.ColumnDefault;
 
 import java.util.LinkedHashSet;
 import java.util.Set;
@@ -14,10 +15,6 @@ import java.util.Set;
 @Entity
 @Table(name = "users")
 public class User {
-
-    @Version
-    private Long version;
-
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "users_id_gen")
     @SequenceGenerator(name = "users_id_gen", sequenceName = "users_user_id_seq", allocationSize = 1)
@@ -61,6 +58,10 @@ public class User {
     @Size(max = 255)
     @Column(name = "imguser")
     private String imguser;
+
+    @ColumnDefault("0")
+    @Column(name = "version")
+    private Long version;
 
     @OneToMany(mappedBy = "user")
     private Set<Reservation> reservations = new LinkedHashSet<>();

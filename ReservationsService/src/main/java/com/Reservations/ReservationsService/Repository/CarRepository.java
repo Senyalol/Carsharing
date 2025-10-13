@@ -5,11 +5,12 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
+import java.util.Optional;
 
 @Repository
 public interface CarRepository extends JpaRepository<Car, Integer> {
 
-    Car findById(int id);
+    Optional<Car> findById(int id);
     List<Car> findByMake(String make);
     List<Car> findByModel(String model);
     List<Car> findByYear(int year);
