@@ -2,10 +2,11 @@ spring:
   application:
     name: Carservice
   datasource:
-    url: jdbc:postgresql://localhost:5432/Cars
-    username: postgres
-    password: 1111
+    url: jdbc:postgresql://${POSTGRES_HOST}:${POSTGRES_PORT}/${POSTGRES_DB}
+    username: ${POSTGRES_USERNAME}
+    password: ${POSTGRES_PASSWORD}
     driver-class-name: org.postgresql.Driver
+
 
   flyway:
     repair-on-migrate: true
@@ -22,24 +23,16 @@ spring:
         dialect: org.hibernate.dialect.PostgreSQLDialect
 
   kafka:
-    bootstrap-servers: localhost:9092
-
-server:
-  port: 8081
-
-# засунули в контейнер
-# |
-# v
+    bootstrap-servers: kafka:9092
 
 #spring:
 #  application:
 #    name: Carservice
 #  datasource:
-#    url: jdbc:postgresql://${POSTGRES_HOST}:${POSTGRES_PORT}/${POSTGRES_DB}
-#    username: ${POSTGRES_USERNAME}
-#    password: ${POSTGRES_PASSWORD}
+#    url: jdbc:postgresql://localhost:5432/Cars
+#    username: postgres
+#    password: 1111
 #    driver-class-name: org.postgresql.Driver
-#
 #
 #  flyway:
 #    repair-on-migrate: true
@@ -56,4 +49,12 @@ server:
 #        dialect: org.hibernate.dialect.PostgreSQLDialect
 #
 #  kafka:
-#    bootstrap-servers: kafka:9092
+#    bootstrap-servers: localhost:9092
+#
+#server:
+#  port: 8081
+
+# засунули в контейнер
+# |
+# v
+

@@ -36,4 +36,3 @@ public class ShortUserInfoDTO {
     private String adminkey;
 
 }
-
